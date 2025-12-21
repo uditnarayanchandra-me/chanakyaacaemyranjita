@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chanakya Academy - Leading School in Ranjita, East Champaran</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png">
+    <link rel="shortcut icon" href="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            /* Bright Sunny Day Theme */
+            background: linear-gradient(135deg, #E3F2FD 0%, #FAFAFA 50%, #FFF3E0 100%);
+            background-attachment: fixed;
+            color: #1e3a8a;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .pulse-heart {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom scrollbar for bright theme */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #90cdf4;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #60a5fa;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center space-x-3">
+                    <img src="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png" alt="Chanakya Academy Logo" class="h-16 w-auto drop-shadow-md">
+                    <div>
+                        <h1 class="text-2xl font-bold text-blue-900 tracking-wide">Chanakya Academy</h1>
+                        <p class="text-xs text-blue-600 font-semibold">Excellence in Education</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-blue-600 hover:scale-105 font-medium transition">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 hover:scale-105 font-medium transition">About</a>
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 hover:scale-105 font-medium transition">Features</a>
+                    <a href="#classes" class="text-gray-600 hover:text-blue-600 hover:scale-105 font-medium transition">Classes</a>
+                    <a href="#contact" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/30 transition transform hover:-translate-y-0.5 font-medium">Contact Us</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden text-blue-900">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-nav border-t border-gray-100">
+            <div class="flex flex-col p-4 space-y-3">
+                <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
+                <a href="#features" class="text-gray-700 hover:text-blue-600 font-medium">Features</a>
+                <a href="#classes" class="text-gray-700 hover:text-blue-600 font-medium">Classes</a>
+                <a href="#contact" class="bg-blue-600 text-white px-6 py-2 rounded-full text-center">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20 relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900">
+        <!-- Background Elements -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-cyan-500/30 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 py-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <div class="mb-6 space-y-1">
+                        <p class="text-xs md:text-sm text-emerald-300 font-bold tracking-widest uppercase drop-shadow-md">Run and Managed by Maa Saraswati Educational and Social Welfare Trust</p>
+                        <p class="text-xs md:text-sm text-yellow-300 font-bold tracking-widest uppercase drop-shadow-md">Registered by Government of Bihar</p>
+                    </div>
+                    <div class="flex items-center space-x-2 mb-4 bg-white/10 w-fit px-4 py-1 rounded-full border border-white/10">
+                        <i class="fas fa-heart text-red-400 pulse-heart"></i>
+                        <span class="text-cyan-200 font-medium text-sm">Welcome to Our School</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-white to-cyan-300">Chanakya Academy</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-cyan-100 mb-6 font-light">
+                        🏆 The Leading School in Ranjita, Harsidhi
+                    </p>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed max-w-lg">
+                        Nurturing young minds with love, care, and quality education based on CBSE curriculum. 
+                        Building tomorrow's leaders today!
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold hover:bg-cyan-50 transition shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center space-x-2">
+                            <i class="fas fa-phone"></i>
+                            <span>Enroll Now</span>
+                        </a>
+                        <a href="#about" class="border border-white/30 bg-white/5 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition flex items-center space-x-2">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Learn More</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center relative">
+                    <div class="relative floating">
+                        <div class="w-72 h-72 md:w-96 md:h-96 rounded-full border-2 border-white/20 flex items-center justify-center relative bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md">
+                            <div class="w-56 h-56 md:w-72 md:h-72 bg-gradient-to-br from-teal-500/30 to-blue-600/30 rounded-full flex items-center justify-center border border-white/10">
+                                <div class="text-center text-white px-3">
+                                    <i class="fas fa-book-open text-5xl md:text-7xl mb-3 text-cyan-300 drop-shadow-lg"></i>
+                                    <p class="text-[10px] md:text-xs font-bold leading-tight mb-2 uppercase max-w-[180px] mx-auto text-yellow-100">In the process of being<br>affiliated to<br>CBSE New Delhi</p>
+                                    <p class="text-sm text-cyan-200 font-medium">Nursery to 8th</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Decorative Elements -->
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full flex items-center justify-center animate-bounce shadow-lg shadow-orange-500/20">
+                            <i class="fas fa-star text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-pink-400 to-red-500 rounded-full flex items-center justify-center pulse-heart shadow-lg shadow-pink-500/20">
+                            <i class="fas fa-heart text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 relative z-10 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl text-center transform hover:scale-105 transition duration-300 shadow-xl">
+                    <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+                        <i class="fas fa-user-graduate text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-blue-800" id="studentCount">500+</h3>
+                    <p class="text-gray-700 font-medium">Happy Students</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl text-center transform hover:scale-105 transition duration-300 shadow-xl">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+                        <i class="fas fa-chalkboard-teacher text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-blue-800">25+</h3>
+                    <p class="text-gray-700 font-medium">Expert Teachers</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl text-center transform hover:scale-105 transition duration-300 shadow-xl">
+                    <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+                        <i class="fas fa-book text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-blue-800">9</h3>
+                    <p class="text-gray-700 font-medium">Class Levels</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl text-center transform hover:scale-105 transition duration-300 shadow-xl">
+                    <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
+                        <i class="fas fa-trophy text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-blue-800">100%</h3>
+                    <p class="text-gray-700 font-medium">Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-blue-500 font-semibold text-lg uppercase tracking-wider">About Us</span>
+                <h2 class="text-4xl font-bold text-blue-900 mt-2">Why Choose Chanakya Academy?</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <!-- Image Mosaic -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <img loading="lazy" alt="Students learning" src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full">
+                        <img loading="lazy" alt="Teacher in classroom" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full mt-8">
+                        <img loading="lazy" alt="Kids writing in class" src="https://images.unsplash.com/photo-1588072432836-7fb78c836d07?q=80&w=1600&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full -mt-8">
+                        <img loading="lazy" alt="Group study" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full">
+                    </div>
+                    
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                         <div class="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl transform rotate-3 border border-gray-100">
+                             <p class="font-bold text-blue-900 text-lg">✨ Excellence in Education</p>
+                         </div>
+                    </div>
+                </div>
+                
+                <div class="text-gray-700">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-4 flex items-center">
+                        <span class="bg-red-100 p-2 rounded-full mr-3"><i class="fas fa-heart text-red-500 pulse-heart text-xl"></i></span>
+                        Nurturing Excellence with Love
+                    </h3>
+                    <p class="mb-6 leading-relaxed text-gray-600">
+                        Chanakya Academy is the <strong>leading educational institution</strong> in Ranjita, Harsidhi, 
+                        East Champaran, Bihar-845422. We are committed to providing quality education that shapes 
+                        the future of our students.
+                    </p>
+                    <p class="mb-6 leading-relaxed text-gray-600">
+                        Our curriculum is completely based on <strong>CBSE guidelines</strong>, ensuring students 
+                        receive nationally recognized education. We offer classes from <strong>Nursery to 8th standard</strong>, 
+                        providing a strong foundation for academic success.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
+                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check text-green-600 text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">CBSE Based Curriculum</span>
+                        </div>
+                        <div class="flex items-center space-x-3 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
+                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check text-green-600 text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Experienced & Qualified Teachers</span>
+                        </div>
+                        <div class="flex items-center space-x-3 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
+                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check text-green-600 text-sm"></i>
+                            </div>
+                            <span class="text-gray-700 font-medium">Focus on Overall Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 relative bg-gradient-to-br from-sky-100 via-blue-50 to-indigo-100">
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-blue-500 font-semibold text-lg uppercase">Our Features</span>
+                <h2 class="text-4xl font-bold text-blue-900 mt-2">What Makes Us Special</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                        <i class="fas fa-book-reader text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Quality Education</h3>
+                    <p class="text-gray-600">We provide high-quality education with focus on conceptual learning and practical knowledge.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
+                    <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                        <i class="fas fa-users text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Expert Faculty</h3>
+                    <p class="text-gray-600">Our teachers are highly qualified and dedicated to student success with personalized attention.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
+                    <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                        <i class="fas fa-child text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Child-Friendly</h3>
+                    <p class="text-gray-600">Safe, loving environment where children feel happy and motivated to learn every day.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
+                    <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                        <i class="fas fa-running text-orange-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Sports & Activities</h3>
+                    <p class="text-gray-600">Regular sports, games, and extracurricular activities for physical and mental development.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
+                    <div class="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                        <i class="fas fa-award text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">CBSE Curriculum</h3>
+                    <p class="text-gray-600">Complete syllabus based on CBSE guidelines ensuring standardized quality education.</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
+                    <div class="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                        <i class="fas fa-heart text-cyan-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Value Education</h3>
+                    <p class="text-gray-600">Teaching moral values, discipline, and respect along with academic excellence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-blue-50/50 -z-10"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-blue-500 font-semibold text-lg uppercase">Our Classes</span>
+                <h2 class="text-4xl font-bold text-blue-900 mt-2">Classes We Offer</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">From Nursery to 8th Standard - Complete primary and middle school education</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+                <!-- Classes Cards -->
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-3 text-pink-500">
+                        <i class="fas fa-baby text-xl"></i>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">Nursery</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 text-purple-500">
+                        <i class="fas fa-child text-xl"></i>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">LKG</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 text-blue-500">
+                        <i class="fas fa-child text-xl"></i>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">UKG</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 text-green-600">
+                        <span class="font-bold text-xl">1</span>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">Class 1</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-600">
+                        <span class="font-bold text-xl">2</span>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">Class 2</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3 text-orange-600">
+                        <span class="font-bold text-xl">3</span>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">Class 3</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3 text-red-600">
+                        <span class="font-bold text-xl">4</span>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">Class 4</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-3 text-teal-600">
+                        <span class="font-bold text-xl">5</span>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">Class 5</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-3 text-indigo-600">
+                        <span class="font-bold text-xl">6</span>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">Class 6</h3>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
+                    <div class="w-14 h-14 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-3 text-cyan-600">
+                        <span class="font-bold text-xl">7</span>
+                    </div>
+                    <h3 class="text-blue-900 font-semibold">Class 7</h3>
+                </div>
+            </div>
+            <div class="flex justify-center mt-8">
+                <div class="bg-gradient-to-r from-orange-400 to-red-500 p-6 rounded-2xl text-center transform hover:scale-105 transition cursor-pointer w-48 shadow-xl shadow-orange-500/20">
+                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span class="text-orange-500 font-bold text-xl">8</span>
+                    </div>
+                    <h3 class="text-white font-bold">Class 8</h3>
+                    <p class="text-white/80 text-sm">Highest Class</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="py-20 relative bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <div class="glass-card p-10 rounded-3xl relative shadow-xl">
+                <i class="fas fa-quote-left text-5xl text-blue-200 absolute top-8 left-8"></i>
+                <p class="text-xl text-gray-700 italic mb-6 leading-relaxed relative z-10">
+                    "Chanakya Academy has been instrumental in shaping my child's future. The teachers are 
+                    caring, the environment is positive, and the education quality is excellent. We are 
+                    proud to be part of this wonderful institution."
+                </p>
+                <div class="flex items-center justify-center space-x-1 text-yellow-400 mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="font-semibold text-blue-900">- A Happy Parent</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative bg-gradient-to-br from-rose-50 via-pink-50 to-purple-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-blue-500 font-semibold text-lg uppercase">Get In Touch</span>
+                <h2 class="text-4xl font-bold text-blue-900 mt-2">Contact Us</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="text-gray-700">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-6">Visit Us Today!</h3>
+                    <p class="text-gray-600 mb-8">
+                        We would love to welcome you and your child to Chanakya Academy. 
+                        Come visit us and see why we are the leading school in the region!
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-900">Address</h4>
+                                <p class="text-gray-600">Ranjita, Harsidhi<br>East Champaran, Bihar - 845422</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-clock text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-900">School Hours</h4>
+                                <p class="text-gray-600">Monday - Saturday: 8:00 AM - 3:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-emerald-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-900">Phone</h4>
+                                <p class="text-gray-600">
+                                    <a class="font-semibold text-blue-700 hover:text-blue-900" href="tel:+919470260589">+91 9470260589</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-900">Email</h4>
+                                <p class="text-gray-600"><a class="text-blue-700 hover:text-blue-900" href="mailto:chanakyaacademyranjita@gmail.com">chanakyaacademyranjita@gmail.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-0 rounded-3xl bg-white shadow-2xl overflow-hidden border border-white">
+                    <div class="bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 p-8 relative">
+                        <div class="absolute -top-16 -right-16 w-52 h-52 bg-white/20 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-16 -left-16 w-52 h-52 bg-yellow-300/20 rounded-full blur-2xl"></div>
+                        <div class="relative">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-12 h-12 bg-white/15 rounded-2xl flex items-center justify-center ring-1 ring-white/25">
+                                    <i class="fab fa-whatsapp text-white text-2xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-3xl md:text-4xl font-extrabold text-white leading-tight">Admission Enquiry</h3>
+                                    <p class="text-white/90 font-medium">Instant enquiry on WhatsApp — fast reply!</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">CBSE Based</span>
+                                <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Nursery to 8th</span>
+                                <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Friendly Campus</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-8">
+                        <form id="contactForm" class="space-y-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-sm font-semibold text-blue-900">Parent's Name</label>
+                                    <input name="parentName" type="text" placeholder="Enter parent's name" required class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-semibold text-blue-900">Phone Number</label>
+                                    <input name="phone" type="tel" placeholder="e.g. 9470260589" required class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition">
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-sm font-semibold text-blue-900">Student's Name</label>
+                                    <input name="studentName" type="text" placeholder="Enter student's name" required class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition">
+                                </div>
+                                <div>
+                                    <label class="text-sm font-semibold text-blue-900">Select Class</label>
+                                    <select name="class" required class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition">
+                                        <option value="">Select Class</option>
+                                        <option value="Nursery">Nursery</option>
+                                        <option value="LKG">LKG</option>
+                                        <option value="UKG">UKG</option>
+                                        <option value="Class 1">Class 1</option>
+                                        <option value="Class 2">Class 2</option>
+                                        <option value="Class 3">Class 3</option>
+                                        <option value="Class 4">Class 4</option>
+                                        <option value="Class 5">Class 5</option>
+                                        <option value="Class 6">Class 6</option>
+                                        <option value="Class 7">Class 7</option>
+                                        <option value="Class 8">Class 8</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-sm font-semibold text-blue-900">Message</label>
+                                <textarea name="message" placeholder="Write your message (optional)" rows="4" class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white py-4 rounded-2xl font-extrabold hover:shadow-xl hover:shadow-emerald-500/30 transition flex items-center justify-center gap-3 text-lg">
+                                <i class="fab fa-whatsapp text-2xl"></i>
+                                <span>Send Enquiry to WhatsApp</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+
+                            <p class="text-xs text-gray-500 leading-relaxed">
+                                By clicking, WhatsApp will open with your details filled in. Then tap <strong>Send</strong>.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Helper Modal -->
+    <div id="waModal" class="hidden fixed inset-0 z-[100]">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="relative h-full w-full flex items-center justify-center p-4">
+            <div class="w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-white/60 bg-white">
+                <div class="p-6 md:p-8 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-extrabold leading-tight">Send on WhatsApp</h3>
+                            <p class="text-white/90 font-medium mt-1">If WhatsApp link is blocked, use the options below.</p>
+                        </div>
+                        <button id="waCloseBtn" class="w-10 h-10 rounded-xl bg-white/15 hover:bg-white/20 ring-1 ring-white/25 flex items-center justify-center" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Fast Reply</span>
+                        <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Copy Message</span>
+                        <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Works on Mobile & Desktop</span>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8">
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                        <p class="text-sm font-semibold text-slate-700 mb-2">Message Preview</p>
+                        <pre id="waModalMessage" class="text-slate-800 text-sm whitespace-pre-wrap leading-relaxed"></pre>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-3 mt-5">
+                        <a id="waOpenAppBtn" href="#" class="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 font-extrabold text-white bg-emerald-500 hover:bg-emerald-600 transition">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                            Open App
+                        </a>
+                        <a id="waOpenWebBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 font-extrabold text-white bg-blue-600 hover:bg-blue-700 transition">
+                            <i class="fas fa-globe"></i>
+                            WhatsApp Web
+                        </a>
+                        <button id="waCopyBtn" class="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 font-extrabold text-slate-900 bg-yellow-300 hover:bg-yellow-400 transition">
+                            <i class="fas fa-copy"></i>
+                            Copy
+                        </button>
+                    </div>
+
+                    <p class="text-xs text-slate-500 mt-4 leading-relaxed">
+                        Tip: If WhatsApp is blocked on this network, copy the message and send it manually to <strong>+91 9470260589</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="bg-white/95 p-2 rounded-2xl shadow-lg ring-1 ring-white/30">
+                            <img src="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png" alt="Chanakya Academy Logo" class="h-12 w-auto drop-shadow">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Chanakya Academy</h3>
+                            <p class="text-gray-300 text-sm">Excellence in Education</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">Providing quality CBSE education from Nursery to 8th standard in Ranjita, East Champaran.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="#features" class="hover:text-blue-400 transition">Features</a></li>
+                        <li><a href="#classes" class="hover:text-blue-400 transition">Classes</a></li>
+                        <li><a href="#contact" class="hover:text-blue-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Location</h4>
+                    <p class="text-gray-300 mb-3">
+                        <i class="fas fa-map-marker-alt mr-2 text-cyan-300"></i>
+                        Ranjita, Harsidhi<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;East Champaran, Bihar - 845422
+                    </p>
+                    <p class="text-gray-300 mb-4">
+                        <i class="fas fa-phone mr-2 text-emerald-300"></i>
+                        <a class="hover:text-white font-semibold" href="tel:+919470260589">+91 9470260589</a>
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 ring-1 ring-white/15 rounded-full flex items-center justify-center hover:bg-white/15 transition" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://web.whatsapp.com/send?phone=919470260589" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center hover:bg-emerald-400 transition wa-link" data-wa="919470260589" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 ring-1 ring-white/15 rounded-full flex items-center justify-center hover:bg-white/15 transition" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400">
+                    Made with <i class="fas fa-heart text-red-500 pulse-heart"></i> for Chanakya Academy
+                </p>
+                <p class="text-gray-500 text-sm mt-2">© 2024 Chanakya Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking on links
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // WhatsApp opener (avoids api.whatsapp.com blocks) + helper modal
+        const buildWhatsAppLinks = ({ phone, message }) => {
+            const encoded = encodeURIComponent(message);
+            return {
+                deepLink: `whatsapp://send?phone=${phone}&text=${encoded}`,
+                webLink: `https://web.whatsapp.com/send?phone=${phone}&text=${encoded}`
+            };
+        };
+
+        const showWhatsAppModal = ({ phone, message }) => {
+            const modal = document.getElementById('waModal');
+            const pre = document.getElementById('waModalMessage');
+            const openAppBtn = document.getElementById('waOpenAppBtn');
+            const openWebBtn = document.getElementById('waOpenWebBtn');
+            const copyBtn = document.getElementById('waCopyBtn');
+            const closeBtn = document.getElementById('waCloseBtn');
+
+            if (!modal || !pre || !openAppBtn || !openWebBtn || !copyBtn || !closeBtn) return;
+
+            const { deepLink, webLink } = buildWhatsAppLinks({ phone, message });
+
+            pre.textContent = message;
+            openAppBtn.setAttribute('href', deepLink);
+            openWebBtn.setAttribute('href', webLink);
+
+            const close = () => modal.classList.add('hidden');
+            closeBtn.onclick = close;
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) close();
+            }, { once: true });
+
+            copyBtn.onclick = async () => {
+                try {
+                    await navigator.clipboard.writeText(message);
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    }, 1400);
+                } catch {
+                    // Fallback
+                    const ta = document.createElement('textarea');
+                    ta.value = message;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    ta.remove();
+                }
+            };
+
+            // Close on background click
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.classList.add('hidden');
+            };
+
+            modal.classList.remove('hidden');
+        };
+
+        const openWhatsAppMessage = ({ phone, message }) => {
+            const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+            const { deepLink, webLink } = buildWhatsAppLinks({ phone, message });
+
+            // Always show helper modal so user can copy if blocked.
+            showWhatsAppModal({ phone, message });
+
+            // Also try opening WhatsApp automatically.
+            if (isMobile) {
+                window.location.href = deepLink;
+            } else {
+                window.open(webLink, '_blank', 'noopener,noreferrer');
+            }
+        };
+
+        // Footer / generic WhatsApp buttons
+        document.querySelectorAll('.wa-link').forEach(a => {
+            a.addEventListener('click', (e) => {
+                const phone = a.getAttribute('data-wa');
+                if (!phone) return;
+                e.preventDefault();
+                openWhatsAppMessage({
+                    phone,
+                    message: 'Hello! I want to know about admissions in Chanakya Academy.'
+                });
+            });
+        });
+
+        // Form submission -> WhatsApp
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = e.currentTarget;
+            const parentName = (form.elements.parentName?.value || '').trim();
+            const phone = (form.elements.phone?.value || '').trim();
+            const studentName = (form.elements.studentName?.value || '').trim();
+            const selectedClass = (form.elements.class?.value || '').trim();
+            const msg = (form.elements.message?.value || '').trim();
+
+            const lines = [
+                '🎓 *Chanakya Academy – Admission Enquiry*',
+                '',
+                `👤 Parent Name: ${parentName}`,
+                `📞 Phone: ${phone}`,
+                `🧒 Student Name: ${studentName}`,
+                `🏫 Class: ${selectedClass}`,
+                msg ? `📝 Message: ${msg}` : '📝 Message: (not provided)',
+                '',
+                '📍 Ranjita, Harsidhi, East Champaran, Bihar-845422'
+            ];
+
+            const waNumber = '919470260589';
+            openWhatsAppMessage({ phone: waNumber, message: lines.join('\n') });
+
+            // Friendly confirmation (non-blocking)
+            setTimeout(() => {
+                alert('WhatsApp will open with your enquiry. Please tap SEND to submit it.');
+                form.reset();
+            }, 400);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('shadow-lg');
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                nav.classList.remove('shadow-lg');
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Animate numbers on scroll
+        const animateValue = (element, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.innerHTML = Math.floor(progress * (end - start) + start) + '+';
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        // Trigger animation when stats section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateValue(document.getElementById('studentCount'), 0, 500, 2000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.getElementById('studentCount'));
+    </script>
+</body>
+</html>
