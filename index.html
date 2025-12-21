@@ -137,8 +137,8 @@
                         Building tomorrow's leaders today!
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#contact" class="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold hover:bg-cyan-50 transition shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center space-x-2">
-                            <i class="fas fa-phone"></i>
+                        <a href="#admission-enquiry" class="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold hover:bg-cyan-50 transition shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center space-x-2">
+                            <i class="fas fa-file-lines"></i>
                             <span>Enroll Now</span>
                         </a>
                         <a href="#about" class="border border-white/30 bg-white/5 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition flex items-center space-x-2">
@@ -221,7 +221,7 @@
                     <div class="grid grid-cols-2 gap-4">
                         <img loading="lazy" alt="Students learning" src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full">
                         <img loading="lazy" alt="Teacher in classroom" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full mt-8">
-                        <img loading="lazy" alt="Kids writing in class" src="https://images.unsplash.com/photo-1588072432836-7fb78c836d07?q=80&w=1600&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full -mt-8">
+                        <img loading="lazy" alt="Kids studying in class" src="https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=1600&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full -mt-8">
                         <img loading="lazy" alt="Group study" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full">
                     </div>
                     
@@ -496,7 +496,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="glass-card p-0 rounded-3xl bg-white shadow-2xl overflow-hidden border border-white">
+                <div id="admission-enquiry" class="glass-card p-0 rounded-3xl bg-white shadow-2xl overflow-hidden border border-white">
                     <div class="bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 p-8 relative">
                         <div class="absolute -top-16 -right-16 w-52 h-52 bg-white/20 rounded-full blur-2xl"></div>
                         <div class="absolute -bottom-16 -left-16 w-52 h-52 bg-yellow-300/20 rounded-full blur-2xl"></div>
@@ -802,11 +802,9 @@
             });
         });
 
-        // Form submission -> WhatsApp
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        const WA_NUMBER = '919470260589';
 
-            const form = e.currentTarget;
+        const buildAdmissionMessageFromForm = (form) => {
             const parentName = (form.elements.parentName?.value || '').trim();
             const phone = (form.elements.phone?.value || '').trim();
             const studentName = (form.elements.studentName?.value || '').trim();
@@ -825,15 +823,30 @@
                 '📍 Ranjita, Harsidhi, East Champaran, Bihar-845422'
             ];
 
-            const waNumber = '919470260589';
-            openWhatsAppMessage({ phone: waNumber, message: lines.join('\n') });
+            return lines.join('\n');
+        };
 
-            // Friendly confirmation (non-blocking)
-            setTimeout(() => {
-                alert('WhatsApp will open with your enquiry. Please tap SEND to submit it.');
-                form.reset();
-            }, 400);
-        });
+        const attachWhatsAppFormHandler = (formId, { closeModal } = {}) => {
+            const form = document.getElementById(formId);
+            if (!form) return;
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const message = buildAdmissionMessageFromForm(form);
+                openWhatsAppMessage({ phone: WA_NUMBER, message });
+
+                setTimeout(() => {
+                    alert('WhatsApp will open with your enquiry. Please tap SEND to submit it.');
+                    form.reset();
+                    if (typeof closeModal === 'function') closeModal();
+                }, 400);
+            });
+        };
+
+        // Contact form submission -> WhatsApp
+        attachWhatsAppFormHandler('contactForm');
+
+        // Hero Enroll Now button scrolls to the in-page Admission Enquiry form (no popup)
 
         // Navbar background on scroll
         window.addEventListener('scroll', () => {
