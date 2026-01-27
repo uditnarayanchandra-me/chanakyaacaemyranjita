@@ -9,262 +9,958 @@
     <link rel="shortcut icon" href="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png">
     <link rel="apple-touch-icon" href="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            font-family: 'Poppins', sans-serif;
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4BA;
+            --royal-blue: #1e3a5f;
+            --cream: #FFFDF9;
+            --royal-purple: #4A1A6B;
         }
+        
+        * { 
+            font-family: 'Inter', sans-serif; 
+            cursor: none;
+        }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-hindi { font-family: 'Noto Sans Devanagari', sans-serif; }
+        
         body {
-            /* Bright Sunny Day Theme */
-            background: linear-gradient(135deg, #E3F2FD 0%, #FAFAFA 50%, #FFF3E0 100%);
-            background-attachment: fixed;
-            color: #1e3a8a;
+            background: var(--cream);
+            overflow-x: hidden;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+        /* ========== ROYAL CUSTOM CURSOR ========== */
+        .cursor-royal {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+            mix-blend-mode: difference;
         }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        .cursor-royal::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            transition: transform 0.2s ease;
         }
-        .floating {
-            animation: floating 3s ease-in-out infinite;
+        .cursor-royal.hover {
+            transform: scale(2);
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #fff;
         }
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+        .cursor-royal.hover::before {
+            transform: translate(-50%, -50%) scale(0);
         }
-        .pulse-heart {
-            animation: pulse 1.5s ease-in-out infinite;
+        .cursor-royal.click {
+            transform: scale(0.8);
+            background: var(--gold);
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
         }
-        .card-hover:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        
+        /* Mobile Tap Effect */
+        .tap-effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, transparent 70%);
+            transform: translate(-50%, -50%) scale(0);
+            animation: tapBurst 0.6s ease-out forwards;
         }
-        .text-gradient {
-            background: linear-gradient(to right, #2563eb, #7c3aed);
+        .tap-effect::before {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            color: var(--gold);
+            animation: tapStar 0.6s ease-out forwards;
+        }
+        @keyframes tapBurst {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+        @keyframes tapStar {
+            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2) rotate(180deg); opacity: 0; }
+        }
+        
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 99997;
+            font-size: 12px;
+            color: var(--gold);
+            animation: sparkleFloat 1s ease-out forwards;
+        }
+        @keyframes sparkleFloat {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-50px) scale(0.5); }
+        }
+
+        /* Hide cursor on mobile */
+        @media (max-width: 768px) {
+            .cursor-royal, .cursor-trail { display: none; }
+            * { cursor: auto; }
+        }
+
+        /* ========== ROYAL MARQUEE RIBBON ========== */
+        .royal-ribbon {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 25%, #0f0f2a 50%, #1a1a3e 75%, #0a0a1a 100%);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .royal-ribbon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            animation: ribbonShine 4s linear infinite;
+        }
+        @keyframes ribbonShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 12px 0;
+        }
+        .marquee-content {
+            display: flex;
+            animation: marqueeScroll 30s linear infinite;
+        }
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .gold-text {
+            background: linear-gradient(135deg, #D4AF37 0%, #F4E4BA 25%, #D4AF37 50%, #F4E4BA 75%, #D4AF37 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: goldShine 3s linear infinite;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
-        /* Custom scrollbar for bright theme */
-        ::-webkit-scrollbar {
-            width: 10px;
+        @keyframes goldShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        
+        .royal-diamond {
+            display: inline-block;
+            animation: diamondSpin 4s ease-in-out infinite;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #90cdf4;
-            border-radius: 5px;
+        @keyframes diamondSpin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(15deg) scale(1.2); }
+            75% { transform: rotate(-15deg) scale(1.2); }
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav-premium {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+            overflow: hidden;
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::before {
+            width: 100%;
+        }
+        .nav-link:hover {
+            color: var(--royal-blue);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero-gradient {
+            background: 
+                radial-gradient(ellipse 100% 80% at 20% 0%, rgba(212, 175, 55, 0.08), transparent),
+                radial-gradient(ellipse 80% 60% at 80% 20%, rgba(74, 26, 107, 0.06), transparent),
+                radial-gradient(ellipse 60% 50% at 50% 100%, rgba(30, 58, 95, 0.08), transparent),
+                linear-gradient(180deg, #ffffff 0%, var(--cream) 50%, #FFF8F0 100%);
+        }
+
+        /* ========== ANIMATED SHAPES ========== */
+        .shape-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: blobFloat 20s ease-in-out infinite;
+        }
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(30px, -30px) scale(1.1) rotate(90deg); }
+            50% { transform: translate(-20px, 20px) scale(0.95) rotate(180deg); }
+            75% { transform: translate(20px, 10px) scale(1.05) rotate(270deg); }
+        }
+
+        /* ========== SCROLL ANIMATIONS ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ========== STAGGER ANIMATION ========== */
+        .stagger-container > * {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .stagger-container.active > *:nth-child(1) { animation: staggerIn 0.6s 0.1s forwards; }
+        .stagger-container.active > *:nth-child(2) { animation: staggerIn 0.6s 0.15s forwards; }
+        .stagger-container.active > *:nth-child(3) { animation: staggerIn 0.6s 0.2s forwards; }
+        .stagger-container.active > *:nth-child(4) { animation: staggerIn 0.6s 0.25s forwards; }
+        .stagger-container.active > *:nth-child(5) { animation: staggerIn 0.6s 0.3s forwards; }
+        .stagger-container.active > *:nth-child(6) { animation: staggerIn 0.6s 0.35s forwards; }
+        .stagger-container.active > *:nth-child(7) { animation: staggerIn 0.6s 0.4s forwards; }
+        .stagger-container.active > *:nth-child(8) { animation: staggerIn 0.6s 0.45s forwards; }
+        .stagger-container.active > *:nth-child(9) { animation: staggerIn 0.6s 0.5s forwards; }
+        .stagger-container.active > *:nth-child(10) { animation: staggerIn 0.6s 0.55s forwards; }
+        .stagger-container.active > *:nth-child(11) { animation: staggerIn 0.6s 0.6s forwards; }
+        @keyframes staggerIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== PREMIUM CARDS ========== */
+        .card-royal {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 
+                0 10px 40px -10px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .card-royal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        .card-royal:hover::before {
+            left: 100%;
+        }
+        .card-royal:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 
+                0 30px 60px -15px rgba(0, 0, 0, 0.15),
+                0 0 40px -10px rgba(212, 175, 55, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        /* ========== CLASS CARDS ========== */
+        .class-card {
+            background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+            border: 2px solid transparent;
+            box-shadow: 0 8px 30px -10px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .class-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .class-card:hover::after {
+            opacity: 1;
+        }
+        .class-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px -15px rgba(212, 175, 55, 0.3);
+        }
+        .class-card .icon-wrapper {
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .class-card:hover .icon-wrapper {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        /* ========== FLOATING ANIMATION ========== */
+        .float-gentle {
+            animation: floatGentle 6s ease-in-out infinite;
+        }
+        @keyframes floatGentle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+        .float-slow {
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn-royal {
+            background: linear-gradient(135deg, var(--gold) 0%, #E8C252 50%, var(--gold) 100%);
+            background-size: 200% auto;
+            color: #1a1a2e;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.5);
+        }
+        .btn-royal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn-royal:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -10px rgba(212, 175, 55, 0.6);
+        }
+        .btn-royal:hover::before {
+            left: 100%;
+        }
+        
+        .btn-dark {
+            background: linear-gradient(135deg, var(--royal-blue) 0%, #2d5a87 100%);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px -10px rgba(30, 58, 95, 0.4);
+        }
+        .btn-dark::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn-dark:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -10px rgba(30, 58, 95, 0.5);
+        }
+        .btn-dark:hover::before {
+            left: 100%;
+        }
+
+        /* ========== STAT CARDS ========== */
+        .stat-card {
+            background: linear-gradient(135deg, #fff 0%, #fafafa 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+        }
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent);
+            border-radius: 50%;
+            transform: translate(30%, 30%);
+        }
+
+        /* ========== PULSE RING ========== */
+        .pulse-ring {
+            position: relative;
+        }
+        .pulse-ring::before,
+        .pulse-ring::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: inherit;
+            border: 2px solid var(--gold);
+            opacity: 0;
+        }
+        .pulse-ring::before {
+            animation: pulseRing 2s ease-out infinite;
+        }
+        .pulse-ring::after {
+            animation: pulseRing 2s ease-out 1s infinite;
+        }
+        @keyframes pulseRing {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        /* ========== TRUST BADGE ========== */
+        .trust-badge {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d5a 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .trust-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: badgeShine 3s ease-in-out infinite;
+        }
+        @keyframes badgeShine {
+            0%, 100% { left: -100%; }
+            50% { left: 150%; }
+        }
+
+        /* ========== SECTION DECORATIONS ========== */
+        .section-badge {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.2));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .ornament-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            position: relative;
+        }
+        .ornament-line::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gold);
+            background: var(--cream);
+            padding: 0 10px;
+            font-size: 10px;
+        }
+
+        /* ========== QUOTE STYLING ========== */
+        .quote-mark {
+            font-family: Georgia, serif;
+            font-size: 120px;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.3;
+        }
+
+        /* ========== GLOW EFFECTS ========== */
+        .glow-gold {
+            box-shadow: 0 0 80px -20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ========== CUSTOM SCROLLBAR ========== */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(180deg, var(--gold), var(--royal-blue));
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #60a5fa;
+            background: linear-gradient(180deg, var(--gold-light), var(--gold));
+        }
+
+        /* ========== CLASS 8 SPECIAL ========== */
+        .class-8-card {
+            background: linear-gradient(135deg, #D4AF37 0%, #E8C252 30%, #D4AF37 60%, #F4E4BA 100%);
+            background-size: 200% 200%;
+            animation: goldGradient 4s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes goldGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .class-8-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+            animation: shimmer 3s linear infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* ========== HERO CIRCLE ========== */
+        .hero-circle {
+            position: relative;
+        }
+        .hero-circle::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            border: 2px dashed rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            animation: rotateDash 20s linear infinite;
+        }
+        @keyframes rotateDash {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== TYPING EFFECT ========== */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: var(--gold);
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
         }
     </style>
 </head>
-<body class="antialiased min-h-screen">
+<body class="antialiased">
+    <!-- Royal Custom Cursor -->
+    <div class="cursor-royal" id="cursor"></div>
+    <div class="cursor-trail" id="cursorTrail1"></div>
+    <div class="cursor-trail" id="cursorTrail2" style="opacity: 0.4; width: 6px; height: 6px;"></div>
+    <div class="cursor-trail" id="cursorTrail3" style="opacity: 0.2; width: 4px; height: 4px;"></div>
+
+    <!-- Royal Marquee Ribbon -->
+    <div class="royal-ribbon relative z-50">
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <div class="flex items-center px-6">
+                    <span class="royal-diamond text-yellow-400 mx-3">✦</span>
+                    <span class="gold-text font-semibold tracking-wide text-sm md:text-base">Welcome to Chanakya Academy, Ranjita</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">❖</span>
+                    <span class="gold-text font-hindi font-semibold tracking-wide text-sm md:text-base">चाणक्य एकेडमी में आपका स्वागत है</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">✦</span>
+                    <span class="gold-text font-semibold tracking-wide text-sm md:text-base">Excellence in Education Since Day 1</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">❖</span>
+                </div>
+                <div class="flex items-center px-6">
+                    <span class="royal-diamond text-yellow-400 mx-3">✦</span>
+                    <span class="gold-text font-semibold tracking-wide text-sm md:text-base">Welcome to Chanakya Academy, Ranjita</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">❖</span>
+                    <span class="gold-text font-hindi font-semibold tracking-wide text-sm md:text-base">चाणक्य एकेडमी में आपका स्वागत है</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">✦</span>
+                    <span class="gold-text font-semibold tracking-wide text-sm md:text-base">Excellence in Education Since Day 1</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">❖</span>
+                </div>
+                <div class="flex items-center px-6">
+                    <span class="royal-diamond text-yellow-400 mx-3">✦</span>
+                    <span class="gold-text font-semibold tracking-wide text-sm md:text-base">Welcome to Chanakya Academy, Ranjita</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">❖</span>
+                    <span class="gold-text font-hindi font-semibold tracking-wide text-sm md:text-base">चाणक्य एकेडमी में आपका स्वागत है</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">✦</span>
+                    <span class="gold-text font-semibold tracking-wide text-sm md:text-base">Excellence in Education Since Day 1</span>
+                    <span class="royal-diamond text-yellow-400 mx-3">❖</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="glass-nav fixed w-full z-50 top-0 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center py-3">
-                <div class="flex items-center space-x-3">
-                    <img src="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png" alt="Chanakya Academy Logo" class="h-16 w-auto drop-shadow-md">
-                    <div>
-                        <h1 class="text-2xl font-bold text-blue-900 tracking-wide">Chanakya Academy</h1>
-                        <p class="text-xs text-blue-600 font-semibold">Excellence in Education</p>
+    <nav class="nav-premium sticky top-0 z-40 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-4 group">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-yellow-200 to-yellow-400 rounded-2xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500"></div>
+                        <img src="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png" alt="Chanakya Academy Logo" class="h-14 md:h-16 w-auto relative z-10 drop-shadow-lg transition-transform duration-300 group-hover:scale-110">
                     </div>
+                    <div class="hidden sm:block">
+                        <h1 class="font-display text-xl md:text-2xl font-bold text-slate-800 tracking-tight">Chanakya Academy</h1>
+                        <p class="text-xs font-semibold tracking-widest uppercase" style="color: var(--gold);">Excellence in Education</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center gap-10">
+                    <a href="#home" class="nav-link text-slate-600 font-medium transition-all duration-300">Home</a>
+                    <a href="#about" class="nav-link text-slate-600 font-medium transition-all duration-300">About</a>
+                    <a href="#features" class="nav-link text-slate-600 font-medium transition-all duration-300">Features</a>
+                    <a href="#classes" class="nav-link text-slate-600 font-medium transition-all duration-300">Classes</a>
+                    <a href="#contact" class="btn-royal px-7 py-3 rounded-full font-bold text-sm tracking-wide">
+                        <i class="fas fa-phone-alt mr-2"></i>Contact Us
+                    </a>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-blue-600 hover:scale-105 font-medium transition">Home</a>
-                    <a href="#about" class="text-gray-600 hover:text-blue-600 hover:scale-105 font-medium transition">About</a>
-                    <a href="#features" class="text-gray-600 hover:text-blue-600 hover:scale-105 font-medium transition">Features</a>
-                    <a href="#classes" class="text-gray-600 hover:text-blue-600 hover:scale-105 font-medium transition">Classes</a>
-                    <a href="#contact" class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/30 transition transform hover:-translate-y-0.5 font-medium">Contact Us</a>
-                </div>
-                <button id="mobileMenuBtn" class="md:hidden text-blue-900">
-                    <i class="fas fa-bars text-2xl"></i>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden w-12 h-12 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-all">
+                    <i class="fas fa-bars text-slate-700 text-xl"></i>
                 </button>
             </div>
         </div>
+
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden glass-nav border-t border-gray-100">
-            <div class="flex flex-col p-4 space-y-3">
-                <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-                <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
-                <a href="#features" class="text-gray-700 hover:text-blue-600 font-medium">Features</a>
-                <a href="#classes" class="text-gray-700 hover:text-blue-600 font-medium">Classes</a>
-                <a href="#contact" class="bg-blue-600 text-white px-6 py-2 rounded-full text-center">Contact Us</a>
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-slate-100 shadow-2xl">
+            <div class="flex flex-col p-6 gap-4">
+                <a href="#home" class="text-slate-700 hover:text-slate-900 font-semibold py-3 border-b border-slate-100 flex items-center gap-3">
+                    <i class="fas fa-home text-yellow-500"></i> Home
+                </a>
+                <a href="#about" class="text-slate-700 hover:text-slate-900 font-semibold py-3 border-b border-slate-100 flex items-center gap-3">
+                    <i class="fas fa-info-circle text-blue-500"></i> About
+                </a>
+                <a href="#features" class="text-slate-700 hover:text-slate-900 font-semibold py-3 border-b border-slate-100 flex items-center gap-3">
+                    <i class="fas fa-star text-purple-500"></i> Features
+                </a>
+                <a href="#classes" class="text-slate-700 hover:text-slate-900 font-semibold py-3 border-b border-slate-100 flex items-center gap-3">
+                    <i class="fas fa-graduation-cap text-green-500"></i> Classes
+                </a>
+                <a href="#contact" class="btn-royal px-6 py-4 rounded-xl font-bold text-center mt-2">
+                    <i class="fas fa-phone-alt mr-2"></i> Contact Us
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center pt-20 relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900">
-        <!-- Background Elements -->
-        <div class="absolute top-20 left-10 w-72 h-72 bg-cyan-500/30 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-10 right-10 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 py-20">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="text-white">
-                    <div class="mb-6 space-y-1">
-                        <p class="text-xs md:text-sm text-emerald-300 font-bold tracking-widest uppercase drop-shadow-md">Run and Managed by Maa Saraswati Educational and Social Welfare Trust</p>
-                        <p class="text-xs md:text-sm text-yellow-300 font-bold tracking-widest uppercase drop-shadow-md">Registered by Government of Bihar</p>
+    <section id="home" class="hero-gradient min-h-screen relative overflow-hidden">
+        <!-- Background Blobs -->
+        <div class="shape-blob w-96 h-96 bg-gradient-to-br from-yellow-200/30 to-orange-200/20 top-0 right-0 translate-x-1/3 -translate-y-1/4"></div>
+        <div class="shape-blob w-80 h-80 bg-gradient-to-br from-blue-200/20 to-purple-200/20 bottom-20 left-0 -translate-x-1/3" style="animation-delay: -5s;"></div>
+        <div class="shape-blob w-64 h-64 bg-gradient-to-br from-pink-200/20 to-rose-200/20 top-1/2 right-1/4" style="animation-delay: -10s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 lg:px-8 pt-8 pb-20 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[85vh]">
+                <!-- Left Content -->
+                <div class="reveal-left">
+                    <!-- Trust Badges -->
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <div class="trust-badge px-4 py-2 rounded-full flex items-center gap-2">
+                            <i class="fas fa-award text-yellow-400"></i>
+                            <span class="text-white text-xs font-semibold">Govt. of Bihar Registered</span>
+                        </div>
+                        <div class="trust-badge px-4 py-2 rounded-full flex items-center gap-2">
+                            <i class="fas fa-certificate text-emerald-400"></i>
+                            <span class="text-white text-xs font-semibold">CBSE Curriculum</span>
+                        </div>
                     </div>
-                    <div class="flex items-center space-x-2 mb-4 bg-white/10 w-fit px-4 py-1 rounded-full border border-white/10">
-                        <i class="fas fa-heart text-red-400 pulse-heart"></i>
-                        <span class="text-cyan-200 font-medium text-sm">Welcome to Our School</span>
-                    </div>
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-white to-cyan-300">Chanakya Academy</span>
+
+                    <!-- Main Heading -->
+                    <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-slate-800 leading-tight mb-4">
+                        Shaping <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600">Future</span><br>
+                        <span class="relative inline-block">
+                            Leaders
+                            <svg class="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12">
+                                <path d="M0 8 Q50 0 100 8 T200 8" fill="none" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="text-slate-400"> Today</span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-cyan-100 mb-6 font-light">
-                        🏆 The Leading School in Ranjita, Harsidhi
+
+                    <p class="text-base md:text-lg text-slate-600 mb-3 max-w-xl leading-relaxed">
+                        Run and Managed by <strong class="text-slate-800">Maa Saraswati Educational and Social Welfare Trust</strong>
                     </p>
-                    <p class="text-lg text-gray-300 mb-8 leading-relaxed max-w-lg">
-                        Nurturing young minds with love, care, and quality education based on CBSE curriculum. 
-                        Building tomorrow's leaders today!
+
+                    <p class="text-slate-500 mb-8 max-w-xl leading-relaxed">
+                        Providing world-class CBSE education from Nursery to 8th standard with a perfect blend of traditional values and modern teaching methods.
                     </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#admission-enquiry" class="bg-white text-blue-900 px-8 py-4 rounded-full font-semibold hover:bg-cyan-50 transition shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center space-x-2">
-                            <i class="fas fa-file-lines"></i>
-                            <span>Enroll Now</span>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4 mb-10">
+                        <a href="#admission-enquiry" class="btn-royal px-8 py-4 rounded-xl font-bold text-base flex items-center gap-3">
+                            <i class="fas fa-graduation-cap"></i>
+                            Enroll Your Child
                         </a>
-                        <a href="#about" class="border border-white/30 bg-white/5 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition flex items-center space-x-2">
-                            <i class="fas fa-info-circle"></i>
-                            <span>Learn More</span>
+                        <a href="#about" class="btn-dark text-white px-8 py-4 rounded-xl font-bold text-base flex items-center gap-3">
+                            <i class="fas fa-play-circle"></i>
+                            Explore More
                         </a>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="flex flex-wrap gap-6 md:gap-10">
+                        <div class="text-center">
+                            <p class="font-display text-3xl md:text-4xl font-bold text-slate-800">500+</p>
+                            <p class="text-sm text-slate-500">Happy Students</p>
+                        </div>
+                        <div class="w-px bg-slate-200 hidden md:block"></div>
+                        <div class="text-center">
+                            <p class="font-display text-3xl md:text-4xl font-bold text-slate-800">25+</p>
+                            <p class="text-sm text-slate-500">Expert Teachers</p>
+                        </div>
+                        <div class="w-px bg-slate-200 hidden md:block"></div>
+                        <div class="text-center">
+                            <p class="font-display text-3xl md:text-4xl font-bold text-slate-800">100%</p>
+                            <p class="text-sm text-slate-500">Success Rate</p>
+                        </div>
                     </div>
                 </div>
-                <div class="flex justify-center relative">
-                    <div class="relative floating">
-                        <div class="w-72 h-72 md:w-96 md:h-96 rounded-full border-2 border-white/20 flex items-center justify-center relative bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md">
-                            <div class="w-56 h-56 md:w-72 md:h-72 bg-gradient-to-br from-teal-500/30 to-blue-600/30 rounded-full flex items-center justify-center border border-white/10">
-                                <div class="text-center text-white px-3">
-                                    <i class="fas fa-book-open text-5xl md:text-7xl mb-3 text-cyan-300 drop-shadow-lg"></i>
-                                    <p class="text-[10px] md:text-xs font-bold leading-tight mb-2 uppercase max-w-[180px] mx-auto text-yellow-100">In the process of being<br>affiliated to<br>CBSE New Delhi</p>
-                                    <p class="text-sm text-cyan-200 font-medium">Nursery to 8th</p>
+
+                <!-- Right Content - Hero Visual -->
+                <div class="reveal-right relative flex justify-center">
+                    <div class="relative float-gentle hero-circle">
+                        <!-- Main Circle -->
+                        <div class="w-72 h-72 md:w-[400px] md:h-[400px] rounded-full bg-gradient-to-br from-white to-slate-50 shadow-2xl flex items-center justify-center relative glow-gold">
+                            <!-- Inner Circle -->
+                            <div class="w-56 h-56 md:w-72 md:h-72 rounded-full bg-gradient-to-br from-slate-50 to-white flex items-center justify-center shadow-inner border border-slate-100">
+                                <div class="text-center p-4">
+                                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg rotate-3">
+                                        <i class="fas fa-book-open text-white text-2xl md:text-3xl"></i>
+                                    </div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">In Process of</p>
+                                    <p class="font-display text-base md:text-lg font-bold text-slate-800">CBSE Affiliation</p>
+                                    <p class="text-xl md:text-2xl font-display font-bold text-slate-700 mt-2">Nursery to 8th</p>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Decorative Elements -->
-                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full flex items-center justify-center animate-bounce shadow-lg shadow-orange-500/20">
-                            <i class="fas fa-star text-white text-3xl"></i>
-                        </div>
-                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-pink-400 to-red-500 rounded-full flex items-center justify-center pulse-heart shadow-lg shadow-pink-500/20">
-                            <i class="fas fa-heart text-white text-2xl"></i>
+
+                            <!-- Floating Badges -->
+                            <div class="absolute -top-2 -right-2 md:-top-4 md:-right-4 pulse-ring rounded-2xl">
+                                <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-xl">
+                                    <i class="fas fa-star text-white text-xl md:text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-8 float-slow" style="animation-delay: -2s;">
+                                <div class="bg-white px-4 py-2 md:px-5 md:py-3 rounded-xl shadow-xl border border-slate-100">
+                                    <div class="flex items-center gap-2 md:gap-3">
+                                        <div class="w-8 h-8 md:w-10 md:h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-check text-blue-600 text-sm md:text-base"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500">Success Rate</p>
+                                            <p class="font-bold text-slate-800 text-sm md:text-base">100%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute top-1/2 -right-6 md:-right-10 float-gentle" style="animation-delay: -4s;">
+                                <div class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
+                                    <i class="fas fa-heart text-white text-lg md:text-xl"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Decorative Bottom Wave -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 60L60 55C120 50 240 40 360 45C480 50 600 70 720 75C840 80 960 70 1080 60C1200 50 1320 40 1380 35L1440 30V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V60Z" fill="#1e3a5f"/>
+            </svg>
+        </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="py-12 relative z-10 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="bg-white p-6 rounded-2xl text-center transform hover:scale-105 transition duration-300 shadow-xl">
-                    <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-                        <i class="fas fa-user-graduate text-white text-2xl"></i>
+    <section class="py-16 md:py-20 relative" style="background: var(--royal-blue);">
+        <div class="max-w-6xl mx-auto px-4 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 stagger-container">
+                <div class="stat-card p-5 md:p-6 rounded-2xl text-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg">
+                        <i class="fas fa-user-graduate text-white text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-3xl font-bold text-blue-800" id="studentCount">500+</h3>
-                    <p class="text-gray-700 font-medium">Happy Students</p>
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-slate-800" id="studentCount">0</h3>
+                    <p class="text-slate-600 font-medium mt-1 text-sm md:text-base">Happy Students</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl text-center transform hover:scale-105 transition duration-300 shadow-xl">
-                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-                        <i class="fas fa-chalkboard-teacher text-white text-2xl"></i>
+                <div class="stat-card p-5 md:p-6 rounded-2xl text-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-lg">
+                        <i class="fas fa-chalkboard-teacher text-white text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-3xl font-bold text-blue-800">25+</h3>
-                    <p class="text-gray-700 font-medium">Expert Teachers</p>
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-slate-800" id="teacherCount">0</h3>
+                    <p class="text-slate-600 font-medium mt-1 text-sm md:text-base">Expert Teachers</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl text-center transform hover:scale-105 transition duration-300 shadow-xl">
-                    <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-                        <i class="fas fa-book text-white text-2xl"></i>
+                <div class="stat-card p-5 md:p-6 rounded-2xl text-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg">
+                        <i class="fas fa-book text-white text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-3xl font-bold text-blue-800">9</h3>
-                    <p class="text-gray-700 font-medium">Class Levels</p>
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-slate-800" id="classCount">0</h3>
+                    <p class="text-slate-600 font-medium mt-1 text-sm md:text-base">Class Levels</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl text-center transform hover:scale-105 transition duration-300 shadow-xl">
-                    <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
-                        <i class="fas fa-trophy text-white text-2xl"></i>
+                <div class="stat-card p-5 md:p-6 rounded-2xl text-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg">
+                        <i class="fas fa-trophy text-white text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-3xl font-bold text-blue-800">100%</h3>
-                    <p class="text-gray-700 font-medium">Success Rate</p>
+                    <h3 class="font-display text-3xl md:text-4xl font-bold text-slate-800" id="successRate">0</h3>
+                    <p class="text-slate-600 font-medium mt-1 text-sm md:text-base">Success Rate</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <span class="text-blue-500 font-semibold text-lg uppercase tracking-wider">About Us</span>
-                <h2 class="text-4xl font-bold text-blue-900 mt-2">Why Choose Chanakya Academy?</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
+    <section id="about" class="py-20 md:py-28 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="section-badge inline-block px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-4" style="color: var(--gold);">About Us</span>
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-slate-800 mb-4">Why Choose <span style="color: var(--gold);">Chanakya Academy?</span></h2>
+                <div class="ornament-line w-48 mx-auto mt-6"></div>
             </div>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="relative">
-                    <!-- Image Mosaic -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <img loading="lazy" alt="Students learning" src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full">
-                        <img loading="lazy" alt="Teacher in classroom" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full mt-8">
-                        <img loading="lazy" alt="Kids studying in class" src="https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=1600&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full -mt-8">
-                        <img loading="lazy" alt="Group study" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" class="rounded-2xl shadow-lg hover:scale-105 transition duration-500 object-cover h-48 w-full">
+
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Images Grid -->
+                <div class="reveal-left relative">
+                    <div class="grid grid-cols-12 gap-3 md:gap-4">
+                        <div class="col-span-7">
+                            <img loading="lazy" alt="Students learning" src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop" class="rounded-2xl md:rounded-3xl shadow-2xl w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="col-span-5 pt-8 md:pt-12">
+                            <img loading="lazy" alt="Teacher in classroom" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2000&auto=format&fit=crop" class="rounded-2xl md:rounded-3xl shadow-2xl w-full h-40 md:h-52 object-cover hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="col-span-5 -mt-4 md:-mt-8">
+                            <img loading="lazy" alt="Kids studying" src="https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=1600&auto=format&fit=crop" class="rounded-2xl md:rounded-3xl shadow-2xl w-full h-40 md:h-52 object-cover hover:scale-105 transition-transform duration-700">
+                        </div>
+                        <div class="col-span-7 -mt-2 md:-mt-4">
+                            <img loading="lazy" alt="Group study" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" class="rounded-2xl md:rounded-3xl shadow-2xl w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-700">
+                        </div>
                     </div>
-                    
-                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                         <div class="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl transform rotate-3 border border-gray-100">
-                             <p class="font-bold text-blue-900 text-lg">✨ Excellence in Education</p>
-                         </div>
+                    <!-- Floating Badge -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 float-gentle">
+                        <div class="bg-white/95 backdrop-blur-xl px-4 py-3 md:px-6 md:py-4 rounded-2xl shadow-2xl border border-white rotate-3 hover:rotate-0 transition-transform">
+                            <p class="font-display font-bold text-slate-800 text-base md:text-lg flex items-center gap-2">
+                                <i class="fas fa-sparkles text-yellow-500"></i>
+                                Excellence Since Day 1
+                            </p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="text-gray-700">
-                    <h3 class="text-2xl font-bold text-blue-900 mb-4 flex items-center">
-                        <span class="bg-red-100 p-2 rounded-full mr-3"><i class="fas fa-heart text-red-500 pulse-heart text-xl"></i></span>
-                        Nurturing Excellence with Love
-                    </h3>
-                    <p class="mb-6 leading-relaxed text-gray-600">
-                        Chanakya Academy is the <strong>leading educational institution</strong> in Ranjita, Harsidhi, 
-                        East Champaran, Bihar-845422. We are committed to providing quality education that shapes 
-                        the future of our students.
-                    </p>
-                    <p class="mb-6 leading-relaxed text-gray-600">
-                        Our curriculum is completely based on <strong>CBSE guidelines</strong>, ensuring students 
-                        receive nationally recognized education. We offer classes from <strong>Nursery to 8th standard</strong>, 
-                        providing a strong foundation for academic success.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-3 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-check text-green-600 text-sm"></i>
-                            </div>
-                            <span class="text-gray-700 font-medium">CBSE Based Curriculum</span>
+
+                <!-- Content -->
+                <div class="reveal-right">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center">
+                            <i class="fas fa-heart text-rose-500 text-lg md:text-xl"></i>
                         </div>
-                        <div class="flex items-center space-x-3 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-check text-green-600 text-sm"></i>
+                        <h3 class="font-display text-xl md:text-2xl font-bold text-slate-800">Nurturing Excellence with Love</h3>
+                    </div>
+
+                    <p class="text-slate-600 mb-5 leading-relaxed text-base md:text-lg">
+                        Chanakya Academy is the <strong class="text-slate-800">leading educational institution</strong> in Ranjita, Harsidhi, East Champaran, Bihar-845422. We are committed to providing quality education that shapes the future of our students.
+                    </p>
+
+                    <p class="text-slate-600 mb-8 leading-relaxed text-base md:text-lg">
+                        Our curriculum is completely based on <strong class="text-slate-800">CBSE guidelines</strong>, ensuring students receive nationally recognized education from <strong class="text-slate-800">Nursery to 8th standard</strong>.
+                    </p>
+
+                    <div class="space-y-3 md:space-y-4">
+                        <div class="flex items-center gap-4 p-3 md:p-4 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 hover:shadow-md transition group">
+                            <div class="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fas fa-check text-white text-sm"></i>
                             </div>
-                            <span class="text-gray-700 font-medium">Experienced & Qualified Teachers</span>
+                            <span class="text-slate-700 font-semibold text-sm md:text-base">CBSE Based Curriculum</span>
                         </div>
-                        <div class="flex items-center space-x-3 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-check text-green-600 text-sm"></i>
+                        <div class="flex items-center gap-4 p-3 md:p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 hover:shadow-md transition group">
+                            <div class="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fas fa-check text-white text-sm"></i>
                             </div>
-                            <span class="text-gray-700 font-medium">Focus on Overall Development</span>
+                            <span class="text-slate-700 font-semibold text-sm md:text-base">Experienced & Qualified Teachers</span>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 md:p-4 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 hover:shadow-md transition group">
+                            <div class="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <span class="text-slate-700 font-semibold text-sm md:text-base">Focus on Overall Development</span>
                         </div>
                     </div>
                 </div>
@@ -273,241 +969,299 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-20 relative bg-gradient-to-br from-sky-100 via-blue-50 to-indigo-100">
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="text-center mb-16">
-                <span class="text-blue-500 font-semibold text-lg uppercase">Our Features</span>
-                <h2 class="text-4xl font-bold text-blue-900 mt-2">What Makes Us Special</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
+    <section id="features" class="py-20 md:py-28 relative overflow-hidden" style="background: linear-gradient(180deg, #f8fafc 0%, var(--cream) 100%);">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="section-badge inline-block px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-4" style="color: var(--royal-blue); background: linear-gradient(135deg, rgba(30, 58, 95, 0.1), rgba(30, 58, 95, 0.15));">Our Features</span>
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-slate-800 mb-4">What Makes Us <span style="color: var(--royal-blue);">Special</span></h2>
+                <div class="ornament-line w-48 mx-auto mt-6"></div>
             </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                        <i class="fas fa-book-reader text-blue-600 text-2xl"></i>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-container">
+                <!-- Feature Cards -->
+                <div class="card-royal p-6 md:p-8 rounded-2xl md:rounded-3xl group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-book-reader text-blue-600 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Quality Education</h3>
-                    <p class="text-gray-600">We provide high-quality education with focus on conceptual learning and practical knowledge.</p>
+                    <h3 class="font-display text-lg md:text-xl font-bold text-slate-800 mb-3">Quality Education</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm md:text-base">High-quality education with focus on conceptual learning and practical knowledge application.</p>
                 </div>
-                <!-- Feature 2 -->
-                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
-                    <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                        <i class="fas fa-users text-green-600 text-2xl"></i>
+
+                <div class="card-royal p-6 md:p-8 rounded-2xl md:rounded-3xl group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-users text-emerald-600 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Expert Faculty</h3>
-                    <p class="text-gray-600">Our teachers are highly qualified and dedicated to student success with personalized attention.</p>
+                    <h3 class="font-display text-lg md:text-xl font-bold text-slate-800 mb-3">Expert Faculty</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm md:text-base">Highly qualified teachers dedicated to student success with personalized attention.</p>
                 </div>
-                <!-- Feature 3 -->
-                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
-                    <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                        <i class="fas fa-child text-purple-600 text-2xl"></i>
+
+                <div class="card-royal p-6 md:p-8 rounded-2xl md:rounded-3xl group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-child text-purple-600 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Child-Friendly</h3>
-                    <p class="text-gray-600">Safe, loving environment where children feel happy and motivated to learn every day.</p>
+                    <h3 class="font-display text-lg md:text-xl font-bold text-slate-800 mb-3">Child-Friendly</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm md:text-base">Safe, loving environment where children feel happy and motivated to learn.</p>
                 </div>
-                <!-- Feature 4 -->
-                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
-                    <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                        <i class="fas fa-running text-orange-600 text-2xl"></i>
+
+                <div class="card-royal p-6 md:p-8 rounded-2xl md:rounded-3xl group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-running text-orange-600 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Sports & Activities</h3>
-                    <p class="text-gray-600">Regular sports, games, and extracurricular activities for physical and mental development.</p>
+                    <h3 class="font-display text-lg md:text-xl font-bold text-slate-800 mb-3">Sports & Activities</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm md:text-base">Regular sports, games, and extracurricular activities for holistic development.</p>
                 </div>
-                <!-- Feature 5 -->
-                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
-                    <div class="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                        <i class="fas fa-award text-pink-600 text-2xl"></i>
+
+                <div class="card-royal p-6 md:p-8 rounded-2xl md:rounded-3xl group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-award text-pink-600 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">CBSE Curriculum</h3>
-                    <p class="text-gray-600">Complete syllabus based on CBSE guidelines ensuring standardized quality education.</p>
+                    <h3 class="font-display text-lg md:text-xl font-bold text-slate-800 mb-3">CBSE Curriculum</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm md:text-base">Complete syllabus based on CBSE guidelines ensuring standardized education.</p>
                 </div>
-                <!-- Feature 6 -->
-                <div class="glass-card p-8 rounded-3xl card-hover transition-all duration-300">
-                    <div class="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                        <i class="fas fa-heart text-cyan-600 text-2xl"></i>
+
+                <div class="card-royal p-6 md:p-8 rounded-2xl md:rounded-3xl group">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-cyan-100 to-cyan-200 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-heart text-cyan-600 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-3">Value Education</h3>
-                    <p class="text-gray-600">Teaching moral values, discipline, and respect along with academic excellence.</p>
+                    <h3 class="font-display text-lg md:text-xl font-bold text-slate-800 mb-3">Value Education</h3>
+                    <p class="text-slate-600 leading-relaxed text-sm md:text-base">Teaching moral values, discipline, and respect along with academics.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Classes Section -->
-    <section id="classes" class="py-20 relative overflow-hidden">
-        <div class="absolute inset-0 bg-blue-50/50 -z-10"></div>
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="text-center mb-16">
-                <span class="text-blue-500 font-semibold text-lg uppercase">Our Classes</span>
-                <h2 class="text-4xl font-bold text-blue-900 mt-2">Classes We Offer</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">From Nursery to 8th Standard - Complete primary and middle school education</p>
+    <section id="classes" class="py-20 md:py-28 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="section-badge inline-block px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-4" style="color: var(--gold);">Our Classes</span>
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-slate-800 mb-4">Classes We <span style="color: var(--gold);">Offer</span></h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-base md:text-lg">From Nursery to 8th Standard - Complete primary and middle school education</p>
+                <div class="ornament-line w-48 mx-auto mt-6"></div>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-                <!-- Classes Cards -->
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-3 text-pink-500">
-                        <i class="fas fa-baby text-xl"></i>
+
+            <!-- All Classes Grid - Nursery to Class 7 -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5 stagger-container mb-8">
+                <!-- Nursery -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center">
+                        <i class="fas fa-baby text-pink-500 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">Nursery</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">Nursery</h3>
+                    <p class="text-xs text-slate-500 mt-1">Age 3+</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 text-purple-500">
-                        <i class="fas fa-child text-xl"></i>
+                
+                <!-- LKG -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                        <i class="fas fa-child text-purple-500 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">LKG</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">LKG</h3>
+                    <p class="text-xs text-slate-500 mt-1">Age 4+</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 text-blue-500">
-                        <i class="fas fa-child text-xl"></i>
+                
+                <!-- UKG -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                        <i class="fas fa-child text-blue-500 text-xl md:text-2xl"></i>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">UKG</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">UKG</h3>
+                    <p class="text-xs text-slate-500 mt-1">Age 5+</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 text-green-600">
-                        <span class="font-bold text-xl">1</span>
+                
+                <!-- Class 1 -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                        <span class="font-display font-bold text-green-600 text-xl md:text-2xl">1</span>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">Class 1</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">Class 1</h3>
+                    <p class="text-xs text-slate-500 mt-1">Primary</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 text-yellow-600">
-                        <span class="font-bold text-xl">2</span>
+                
+                <!-- Class 2 -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center">
+                        <span class="font-display font-bold text-yellow-600 text-xl md:text-2xl">2</span>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">Class 2</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">Class 2</h3>
+                    <p class="text-xs text-slate-500 mt-1">Primary</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3 text-orange-600">
-                        <span class="font-bold text-xl">3</span>
+                
+                <!-- Class 3 -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
+                        <span class="font-display font-bold text-orange-600 text-xl md:text-2xl">3</span>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">Class 3</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">Class 3</h3>
+                    <p class="text-xs text-slate-500 mt-1">Primary</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3 text-red-600">
-                        <span class="font-bold text-xl">4</span>
+                
+                <!-- Class 4 -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
+                        <span class="font-display font-bold text-red-600 text-xl md:text-2xl">4</span>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">Class 4</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">Class 4</h3>
+                    <p class="text-xs text-slate-500 mt-1">Primary</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-3 text-teal-600">
-                        <span class="font-bold text-xl">5</span>
+                
+                <!-- Class 5 -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-teal-100 to-teal-200 flex items-center justify-center">
+                        <span class="font-display font-bold text-teal-600 text-xl md:text-2xl">5</span>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">Class 5</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">Class 5</h3>
+                    <p class="text-xs text-slate-500 mt-1">Primary</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-3 text-indigo-600">
-                        <span class="font-bold text-xl">6</span>
+                
+                <!-- Class 6 -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-indigo-100 to-indigo-200 flex items-center justify-center">
+                        <span class="font-display font-bold text-indigo-600 text-xl md:text-2xl">6</span>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">Class 6</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">Class 6</h3>
+                    <p class="text-xs text-slate-500 mt-1">Middle</p>
                 </div>
-                <div class="glass-card p-6 rounded-2xl text-center hover:shadow-lg transition cursor-pointer border border-white">
-                    <div class="w-14 h-14 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-3 text-cyan-600">
-                        <span class="font-bold text-xl">7</span>
+                
+                <!-- Class 7 -->
+                <div class="class-card p-5 md:p-6 rounded-2xl text-center group">
+                    <div class="icon-wrapper w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-xl bg-gradient-to-br from-cyan-100 to-cyan-200 flex items-center justify-center">
+                        <span class="font-display font-bold text-cyan-600 text-xl md:text-2xl">7</span>
                     </div>
-                    <h3 class="text-blue-900 font-semibold">Class 7</h3>
+                    <h3 class="font-bold text-slate-800 text-sm md:text-base">Class 7</h3>
+                    <p class="text-xs text-slate-500 mt-1">Middle</p>
                 </div>
             </div>
-            <div class="flex justify-center mt-8">
-                <div class="bg-gradient-to-r from-orange-400 to-red-500 p-6 rounded-2xl text-center transform hover:scale-105 transition cursor-pointer w-48 shadow-xl shadow-orange-500/20">
-                    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center mx-auto mb-3">
-                        <span class="text-orange-500 font-bold text-xl">8</span>
+
+            <!-- Class 8 Special Card -->
+            <div class="flex justify-center mt-10 reveal-scale">
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-400 rounded-3xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                    <div class="class-8-card relative p-8 md:p-12 rounded-3xl text-center shadow-2xl transform group-hover:scale-105 transition-all duration-500">
+                        <div class="absolute top-3 right-3 md:top-4 md:right-4">
+                            <span class="px-3 py-1.5 bg-white/30 backdrop-blur-sm rounded-full text-white text-xs font-bold flex items-center gap-1">
+                                <i class="fas fa-crown"></i> Senior
+                            </span>
+                        </div>
+                        <div class="w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 rounded-2xl bg-white/90 flex items-center justify-center shadow-xl">
+                            <span class="font-display font-bold text-amber-600 text-3xl md:text-4xl">8</span>
+                        </div>
+                        <h3 class="text-white font-display font-bold text-2xl md:text-3xl drop-shadow-lg">Class 8</h3>
+                        <p class="text-white/90 text-sm md:text-base mt-2 font-medium">Our Highest Class</p>
+                        <div class="mt-4 flex justify-center gap-2">
+                            <span class="px-3 py-1 bg-white/20 rounded-full text-white text-xs">Board Prep</span>
+                            <span class="px-3 py-1 bg-white/20 rounded-full text-white text-xs">Advanced</span>
+                        </div>
                     </div>
-                    <h3 class="text-white font-bold">Class 8</h3>
-                    <p class="text-white/80 text-sm">Highest Class</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonial -->
-    <section class="py-20 relative bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500">
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <div class="glass-card p-10 rounded-3xl relative shadow-xl">
-                <i class="fas fa-quote-left text-5xl text-blue-200 absolute top-8 left-8"></i>
-                <p class="text-xl text-gray-700 italic mb-6 leading-relaxed relative z-10">
-                    "Chanakya Academy has been instrumental in shaping my child's future. The teachers are 
-                    caring, the environment is positive, and the education quality is excellent. We are 
-                    proud to be part of this wonderful institution."
-                </p>
-                <div class="flex items-center justify-center space-x-1 text-yellow-400 mb-4">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+    <!-- Testimonial Section -->
+    <section class="py-20 md:py-28 relative overflow-hidden" style="background: var(--royal-blue);">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-80 h-80 bg-yellow-400 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-80 h-80 bg-blue-400 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 lg:px-8 relative z-10 reveal">
+            <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-8 md:p-14 shadow-2xl relative overflow-hidden">
+                <!-- Quote Mark -->
+                <div class="absolute -top-4 -left-2 md:-top-6 md:-left-4 quote-mark">"</div>
+                
+                <div class="relative z-10">
+                    <p class="font-display text-lg md:text-2xl text-slate-700 italic leading-relaxed mb-8 text-center">
+                        "Chanakya Academy has been instrumental in shaping my child's future. The teachers are caring, the environment is positive, and the education quality is excellent. We are proud to be part of this wonderful institution."
+                    </p>
+                    
+                    <div class="flex items-center justify-center gap-1 text-yellow-400 mb-4">
+                        <i class="fas fa-star text-lg md:text-xl"></i>
+                        <i class="fas fa-star text-lg md:text-xl"></i>
+                        <i class="fas fa-star text-lg md:text-xl"></i>
+                        <i class="fas fa-star text-lg md:text-xl"></i>
+                        <i class="fas fa-star text-lg md:text-xl"></i>
+                    </div>
+                    
+                    <p class="font-display font-bold text-slate-800 text-center text-base md:text-lg">— A Happy Parent</p>
                 </div>
-                <p class="font-semibold text-blue-900">- A Happy Parent</p>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 relative bg-gradient-to-br from-rose-50 via-pink-50 to-purple-100">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <span class="text-blue-500 font-semibold text-lg uppercase">Get In Touch</span>
-                <h2 class="text-4xl font-bold text-blue-900 mt-2">Contact Us</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
+    <section id="contact" class="py-20 md:py-28 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <span class="section-badge inline-block px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-4" style="color: #10b981; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.15));">Contact Us</span>
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-slate-800 mb-4">Get In <span style="color: #10b981;">Touch</span></h2>
+                <div class="ornament-line w-48 mx-auto mt-6"></div>
             </div>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="text-gray-700">
-                    <h3 class="text-2xl font-bold text-blue-900 mb-6">Visit Us Today!</h3>
-                    <p class="text-gray-600 mb-8">
-                        We would love to welcome you and your child to Chanakya Academy. 
-                        Come visit us and see why we are the leading school in the region!
+
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-12">
+                <!-- Contact Info -->
+                <div class="reveal-left">
+                    <h3 class="font-display text-xl md:text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                        <span class="text-2xl md:text-3xl">📍</span> Visit Us Today!
+                    </h3>
+                    <p class="text-slate-600 mb-8 text-base md:text-lg leading-relaxed">
+                        We would love to welcome you and your child to Chanakya Academy. Come visit us and see why we are the leading school in the region!
                     </p>
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+
+                    <div class="space-y-5 md:space-y-6">
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-map-marker-alt text-blue-600 text-lg md:text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-blue-900">Address</h4>
-                                <p class="text-gray-600">Ranjita, Harsidhi<br>East Champaran, Bihar - 845422</p>
+                                <h4 class="font-bold text-slate-800">Address</h4>
+                                <p class="text-slate-600 text-sm md:text-base">Ranjita, Harsidhi<br>East Champaran, Bihar - 845422</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-clock text-green-600 text-xl"></i>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-clock text-green-600 text-lg md:text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-blue-900">School Hours</h4>
-                                <p class="text-gray-600">Monday - Saturday: 8:00 AM - 3:00 PM</p>
+                                <h4 class="font-bold text-slate-800">School Hours</h4>
+                                <p class="text-slate-600 text-sm md:text-base">Monday - Saturday: 8:00 AM - 3:00 PM</p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-phone text-emerald-600 text-xl"></i>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-phone text-emerald-600 text-lg md:text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-blue-900">Phone</h4>
-                                <p class="text-gray-600">
-                                    <a class="font-semibold text-blue-700 hover:text-blue-900" href="tel:+919470260589">+91 9470260589</a>
-                                </p>
+                                <h4 class="font-bold text-slate-800">Phone</h4>
+                                <a class="text-blue-600 hover:text-blue-800 font-bold text-base md:text-lg" href="tel:+919470260589">+91 9470260589</a>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-envelope text-purple-600 text-xl"></i>
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-purple-100 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-envelope text-purple-600 text-lg md:text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-blue-900">Email</h4>
-                                <p class="text-gray-600"><a class="text-blue-700 hover:text-blue-900" href="mailto:chanakyaacademyranjita@gmail.com">chanakyaacademyranjita@gmail.com</a></p>
+                                <h4 class="font-bold text-slate-800">Email</h4>
+                                <a class="text-blue-600 hover:text-blue-800 text-sm md:text-base" href="mailto:chanakyaacademyranjita@gmail.com">chanakyaacademyranjita@gmail.com</a>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Google Maps -->
-                    <div class="mt-8">
-                        <h4 class="font-semibold text-blue-900 mb-4 flex items-center">
-                            <i class="fas fa-map text-blue-600 mr-2"></i>
+                    <div class="mt-8 md:mt-10">
+                        <h4 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-map text-blue-600"></i>
                             Find Us on Map
                         </h4>
-                        <div class="rounded-2xl overflow-hidden shadow-lg border-4 border-white bg-gray-100">
+                        <div class="rounded-2xl overflow-hidden shadow-xl border-4 border-white">
                             <iframe 
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3565.0620324533966!2d84.71520977352692!3d26.67849847012011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x28a52d99dc16875b%3A0x3ceb699e16e389c3!2sCHANAKYA%20ACADEMY%2C%20RANJITA!5e0!3m2!1sen!2sin!4v1766467125084!5m2!1sen!2sin" 
                                 width="100%" 
-                                height="300" 
-                                style="border:0; display:block; min-height:300px;" 
+                                height="250" 
+                                style="border:0; display:block;" 
                                 allowfullscreen="" 
                                 loading="lazy" 
                                 referrerpolicy="no-referrer-when-downgrade"
@@ -516,132 +1270,131 @@
                         </div>
                     </div>
                 </div>
-                <div id="admission-enquiry" class="glass-card p-0 rounded-3xl bg-white shadow-2xl overflow-hidden border border-white">
-                    <div class="bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 p-8 relative">
-                        <div class="absolute -top-16 -right-16 w-52 h-52 bg-white/20 rounded-full blur-2xl"></div>
-                        <div class="absolute -bottom-16 -left-16 w-52 h-52 bg-yellow-300/20 rounded-full blur-2xl"></div>
-                        <div class="relative">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-12 h-12 bg-white/15 rounded-2xl flex items-center justify-center ring-1 ring-white/25">
-                                    <i class="fab fa-whatsapp text-white text-2xl"></i>
+
+                <!-- Contact Form -->
+                <div id="admission-enquiry" class="reveal-right">
+                    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
+                        <!-- Header -->
+                        <div class="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 p-6 md:p-8 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+                            <div class="relative flex items-center gap-4">
+                                <div class="w-12 h-12 md:w-14 md:h-14 bg-white/20 rounded-2xl flex items-center justify-center">
+                                    <i class="fab fa-whatsapp text-white text-2xl md:text-3xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl md:text-4xl font-extrabold text-white leading-tight">Admission Enquiry</h3>
-                                    <p class="text-white/90 font-medium">Instant enquiry on WhatsApp — fast reply!</p>
+                                    <h3 class="font-display text-xl md:text-2xl font-bold text-white">Admission Enquiry</h3>
+                                    <p class="text-white/90 text-sm md:text-base">Instant reply on WhatsApp!</p>
                                 </div>
                             </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">CBSE Based</span>
-                                <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Nursery to 8th</span>
-                                <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Friendly Campus</span>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold">CBSE Based</span>
+                                <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold">Nursery to 8th</span>
+                                <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold">Friendly Campus</span>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="p-8">
-                        <form id="contactForm" class="space-y-4">
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="text-sm font-semibold text-blue-900">Parent's Name</label>
-                                    <input name="parentName" type="text" placeholder="Enter parent's name" required class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition">
+                        <!-- Form -->
+                        <div class="p-6 md:p-8">
+                            <form id="contactForm" class="space-y-4 md:space-y-5">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="text-sm font-bold text-slate-700 mb-2 block">Parent's Name</label>
+                                        <input name="parentName" type="text" placeholder="Enter parent's name" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-slate-100 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-bold text-slate-700 mb-2 block">Phone Number</label>
+                                        <input name="phone" type="tel" placeholder="e.g. 9470260589" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-slate-100 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all">
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="text-sm font-semibold text-blue-900">Phone Number</label>
-                                    <input name="phone" type="tel" placeholder="e.g. 9470260589" required class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition">
+
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="text-sm font-bold text-slate-700 mb-2 block">Student's Name</label>
+                                        <input name="studentName" type="text" placeholder="Enter student's name" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-slate-100 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="text-sm font-bold text-slate-700 mb-2 block">Select Class</label>
+                                        <select name="class" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-slate-100 text-slate-800 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all">
+                                            <option value="">Select Class</option>
+                                            <option value="Nursery">Nursery</option>
+                                            <option value="LKG">LKG</option>
+                                            <option value="UKG">UKG</option>
+                                            <option value="Class 1">Class 1</option>
+                                            <option value="Class 2">Class 2</option>
+                                            <option value="Class 3">Class 3</option>
+                                            <option value="Class 4">Class 4</option>
+                                            <option value="Class 5">Class 5</option>
+                                            <option value="Class 6">Class 6</option>
+                                            <option value="Class 7">Class 7</option>
+                                            <option value="Class 8">Class 8</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="grid md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="text-sm font-semibold text-blue-900">Student's Name</label>
-                                    <input name="studentName" type="text" placeholder="Enter student's name" required class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition">
+                                    <label class="text-sm font-bold text-slate-700 mb-2 block">Message</label>
+                                    <textarea name="message" placeholder="Write your message (optional)" rows="3" class="w-full px-4 py-3 rounded-xl bg-slate-50 border-2 border-slate-100 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-400 focus:bg-white transition-all resize-none"></textarea>
                                 </div>
-                                <div>
-                                    <label class="text-sm font-semibold text-blue-900">Select Class</label>
-                                    <select name="class" required class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition">
-                                        <option value="">Select Class</option>
-                                        <option value="Nursery">Nursery</option>
-                                        <option value="LKG">LKG</option>
-                                        <option value="UKG">UKG</option>
-                                        <option value="Class 1">Class 1</option>
-                                        <option value="Class 2">Class 2</option>
-                                        <option value="Class 3">Class 3</option>
-                                        <option value="Class 4">Class 4</option>
-                                        <option value="Class 5">Class 5</option>
-                                        <option value="Class 6">Class 6</option>
-                                        <option value="Class 7">Class 7</option>
-                                        <option value="Class 8">Class 8</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div>
-                                <label class="text-sm font-semibold text-blue-900">Message</label>
-                                <textarea name="message" placeholder="Write your message (optional)" rows="4" class="mt-2 w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 transition"></textarea>
-                            </div>
+                                <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white py-4 rounded-xl font-bold hover:shadow-xl hover:shadow-emerald-500/30 transition-all flex items-center justify-center gap-3 text-base md:text-lg group">
+                                    <i class="fab fa-whatsapp text-xl md:text-2xl group-hover:scale-110 transition-transform"></i>
+                                    <span>Send Enquiry to WhatsApp</span>
+                                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                </button>
 
-                            <button type="submit" class="w-full bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white py-4 rounded-2xl font-extrabold hover:shadow-xl hover:shadow-emerald-500/30 transition flex items-center justify-center gap-3 text-lg">
-                                <i class="fab fa-whatsapp text-2xl"></i>
-                                <span>Send Enquiry to WhatsApp</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-
-                            <p class="text-xs text-gray-500 leading-relaxed">
-                                By clicking, WhatsApp will open with your details filled in. Then tap <strong>Send</strong>.
-                            </p>
-                        </form>
+                                <p class="text-xs text-slate-500 text-center leading-relaxed">
+                                    By clicking, WhatsApp will open with your details. Then tap <strong>Send</strong>.
+                                </p>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WhatsApp Helper Modal -->
+    <!-- WhatsApp Modal -->
     <div id="waModal" class="hidden fixed inset-0 z-[100]">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="absolute inset-0 bg-slate-900/70 backdrop-blur-sm" id="waModalBackdrop"></div>
         <div class="relative h-full w-full flex items-center justify-center p-4">
-            <div class="w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-white/60 bg-white">
-                <div class="p-6 md:p-8 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 text-white">
-                    <div class="flex items-start justify-between gap-4">
+            <div class="w-full max-w-xl rounded-3xl overflow-hidden shadow-2xl bg-white">
+                <div class="p-5 md:p-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="flex items-start justify-between gap-4 relative">
                         <div>
-                            <h3 class="text-2xl md:text-3xl font-extrabold leading-tight">Send on WhatsApp</h3>
-                            <p class="text-white/90 font-medium mt-1">If WhatsApp link is blocked, use the options below.</p>
+                            <h3 class="font-display text-xl md:text-2xl font-bold">Send on WhatsApp</h3>
+                            <p class="text-white/90 text-sm mt-1">If WhatsApp link is blocked, use options below.</p>
                         </div>
-                        <button id="waCloseBtn" class="w-10 h-10 rounded-xl bg-white/15 hover:bg-white/20 ring-1 ring-white/25 flex items-center justify-center" aria-label="Close">
+                        <button id="waCloseBtn" class="w-9 h-9 rounded-xl bg-white/20 hover:bg-white/30 flex items-center justify-center transition" aria-label="Close">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Fast Reply</span>
-                        <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Copy Message</span>
-                        <span class="px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold ring-1 ring-white/20">Works on Mobile & Desktop</span>
-                    </div>
                 </div>
 
-                <div class="p-6 md:p-8">
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                        <p class="text-sm font-semibold text-slate-700 mb-2">Message Preview</p>
-                        <pre id="waModalMessage" class="text-slate-800 text-sm whitespace-pre-wrap leading-relaxed"></pre>
+                <div class="p-5 md:p-6">
+                    <div class="bg-slate-50 border-2 border-slate-100 rounded-xl p-4 mb-5">
+                        <p class="text-sm font-bold text-slate-700 mb-2">Message Preview</p>
+                        <pre id="waModalMessage" class="text-slate-600 text-xs md:text-sm whitespace-pre-wrap leading-relaxed"></pre>
                     </div>
 
-                    <div class="grid md:grid-cols-3 gap-3 mt-5">
-                        <a id="waOpenAppBtn" href="#" class="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 font-extrabold text-white bg-emerald-500 hover:bg-emerald-600 transition">
+                    <div class="grid grid-cols-3 gap-3">
+                        <a id="waOpenAppBtn" href="#" class="inline-flex flex-col items-center justify-center gap-1 rounded-xl px-3 py-3 font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:shadow-lg transition-all text-center">
                             <i class="fab fa-whatsapp text-xl"></i>
-                            Open App
+                            <span class="text-xs">Open App</span>
                         </a>
-                        <a id="waOpenWebBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 font-extrabold text-white bg-blue-600 hover:bg-blue-700 transition">
-                            <i class="fas fa-globe"></i>
-                            WhatsApp Web
+                        <a id="waOpenWebBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex flex-col items-center justify-center gap-1 rounded-xl px-3 py-3 font-bold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:shadow-lg transition-all text-center">
+                            <i class="fas fa-globe text-xl"></i>
+                            <span class="text-xs">Web</span>
                         </a>
-                        <button id="waCopyBtn" class="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 font-extrabold text-slate-900 bg-yellow-300 hover:bg-yellow-400 transition">
-                            <i class="fas fa-copy"></i>
-                            Copy
+                        <button id="waCopyBtn" class="inline-flex flex-col items-center justify-center gap-1 rounded-xl px-3 py-3 font-bold text-slate-800 bg-gradient-to-r from-yellow-300 to-amber-400 hover:shadow-lg transition-all text-center">
+                            <i class="fas fa-copy text-xl"></i>
+                            <span class="text-xs">Copy</span>
                         </button>
                     </div>
 
-                    <p class="text-xs text-slate-500 mt-4 leading-relaxed">
-                        Tip: If WhatsApp is blocked on this network, copy the message and send it manually to <strong>+91 9470260589</strong>.
+                    <p class="text-xs text-slate-500 mt-4 text-center leading-relaxed">
+                        Tip: Copy and send manually to <strong>+91 9470260589</strong>
                     </p>
                 </div>
             </div>
@@ -649,81 +1402,205 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
+    <footer class="relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 left-1/4 w-80 h-80 bg-yellow-400 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-400 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 lg:px-8 py-12 md:py-16 relative z-10">
+            <div class="grid md:grid-cols-3 gap-10 md:gap-12 mb-10">
+                <!-- Logo & About -->
                 <div>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="bg-white/95 p-2 rounded-2xl shadow-lg ring-1 ring-white/30">
-                            <img src="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png" alt="Chanakya Academy Logo" class="h-12 w-auto drop-shadow">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="bg-white p-2.5 rounded-2xl shadow-lg">
+                            <img src="https://i.postimg.cc/bNgNqbC2/Screenshot-2024-07-06-12-09-05-80-removebg-preview.png" alt="Chanakya Academy Logo" class="h-10 md:h-12 w-auto">
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold">Chanakya Academy</h3>
-                            <p class="text-gray-300 text-sm">Excellence in Education</p>
+                            <h3 class="font-display text-lg md:text-xl font-bold text-white">Chanakya Academy</h3>
+                            <p class="text-slate-400 text-sm">Excellence in Education</p>
                         </div>
                     </div>
-                    <p class="text-gray-400">Providing quality CBSE education from Nursery to 8th standard in Ranjita, East Champaran.</p>
+                    <p class="text-slate-400 leading-relaxed text-sm md:text-base">Providing quality CBSE education from Nursery to 8th standard in Ranjita, East Champaran.</p>
                 </div>
+
+                <!-- Quick Links -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#home" class="hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="#about" class="hover:text-blue-400 transition">About Us</a></li>
-                        <li><a href="#features" class="hover:text-blue-400 transition">Features</a></li>
-                        <li><a href="#classes" class="hover:text-blue-400 transition">Classes</a></li>
-                        <li><a href="#contact" class="hover:text-blue-400 transition">Contact</a></li>
+                    <h4 class="font-display text-lg font-bold text-white mb-5 flex items-center gap-2">
+                        <span class="w-8 h-1 rounded" style="background: var(--gold);"></span>
+                        Quick Links
+                    </h4>
+                    <ul class="space-y-3 text-slate-400 text-sm md:text-base">
+                        <li><a href="#home" class="hover:text-white hover:pl-2 transition-all inline-block">Home</a></li>
+                        <li><a href="#about" class="hover:text-white hover:pl-2 transition-all inline-block">About Us</a></li>
+                        <li><a href="#features" class="hover:text-white hover:pl-2 transition-all inline-block">Features</a></li>
+                        <li><a href="#classes" class="hover:text-white hover:pl-2 transition-all inline-block">Classes</a></li>
+                        <li><a href="#contact" class="hover:text-white hover:pl-2 transition-all inline-block">Contact</a></li>
                     </ul>
                 </div>
+
+                <!-- Location -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Location</h4>
-                    <p class="text-gray-300 mb-3">
-                        <i class="fas fa-map-marker-alt mr-2 text-cyan-300"></i>
-                        Ranjita, Harsidhi<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;East Champaran, Bihar - 845422
+                    <h4 class="font-display text-lg font-bold text-white mb-5 flex items-center gap-2">
+                        <span class="w-8 h-1 bg-emerald-500 rounded"></span>
+                        Location
+                    </h4>
+                    <p class="text-slate-400 mb-3 flex items-start gap-3 text-sm md:text-base">
+                        <i class="fas fa-map-marker-alt mt-1" style="color: var(--gold);"></i>
+                        <span>Ranjita, Harsidhi<br>East Champaran, Bihar - 845422</span>
                     </p>
-                    <p class="text-gray-300 mb-4">
-                        <i class="fas fa-phone mr-2 text-emerald-300"></i>
+                    <p class="text-slate-400 mb-6 flex items-center gap-3 text-sm md:text-base">
+                        <i class="fas fa-phone text-emerald-400"></i>
                         <a class="hover:text-white font-semibold" href="tel:+919470260589">+91 9470260589</a>
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-white/10 ring-1 ring-white/15 rounded-full flex items-center justify-center hover:bg-white/15 transition" aria-label="Facebook">
+
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 md:w-11 md:h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-blue-600 transition text-white" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://web.whatsapp.com/send?phone=919470260589" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center hover:bg-emerald-400 transition wa-link" data-wa="919470260589" aria-label="WhatsApp">
+                        <a href="#" class="w-10 h-10 md:w-11 md:h-11 bg-emerald-500 rounded-xl flex items-center justify-center hover:bg-emerald-400 transition text-white wa-link" data-wa="919470260589" aria-label="WhatsApp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-white/10 ring-1 ring-white/15 rounded-full flex items-center justify-center hover:bg-white/15 transition" aria-label="Instagram">
+                        <a href="#" class="w-10 h-10 md:w-11 md:h-11 bg-white/10 rounded-xl flex items-center justify-center hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 transition text-white" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-800 pt-8 text-center">
-                <p class="text-gray-400">
-                    Made with <i class="fas fa-heart text-red-500 pulse-heart"></i> for Chanakya Academy
+
+            <div class="border-t border-slate-800 pt-8 text-center">
+                <p class="text-slate-400 flex items-center justify-center flex-wrap gap-1 text-sm md:text-base">
+                    Made with <i class="fas fa-heart text-red-500 mx-1"></i> for Chanakya Academy
                 </p>
-                <p class="text-gray-500 text-sm mt-2">© 2024 Chanakya Academy. All rights reserved.</p>
+                <p class="text-slate-500 text-xs md:text-sm mt-2">© 2024 Chanakya Academy. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // ========== ROYAL CUSTOM CURSOR ==========
+        const cursor = document.getElementById('cursor');
+        const trails = [
+            document.getElementById('cursorTrail1'),
+            document.getElementById('cursorTrail2'),
+            document.getElementById('cursorTrail3')
+        ];
+        
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        const trailPositions = trails.map(() => ({ x: 0, y: 0 }));
+        
+        // Check if device is touch
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (!isTouchDevice && cursor) {
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            
+            // Smooth cursor animation
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                
+                // Animate trails with delay
+                trails.forEach((trail, i) => {
+                    const delay = (i + 1) * 0.08;
+                    trailPositions[i].x += (mouseX - trailPositions[i].x) * (0.12 - delay);
+                    trailPositions[i].y += (mouseY - trailPositions[i].y) * (0.12 - delay);
+                    trail.style.left = trailPositions[i].x + 'px';
+                    trail.style.top = trailPositions[i].y + 'px';
+                });
+                
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+            
+            // Hover effect
+            const hoverElements = document.querySelectorAll('a, button, .card-royal, .class-card, .stat-card, input, select, textarea');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+            
+            // Click effect
+            document.addEventListener('mousedown', () => cursor.classList.add('click'));
+            document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+        }
+        
+        // ========== MOBILE TAP EFFECT ==========
+        if (isTouchDevice) {
+            document.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                createTapEffect(touch.clientX, touch.clientY);
+            });
+        }
+        
+        function createTapEffect(x, y) {
+            // Main tap burst
+            const tap = document.createElement('div');
+            tap.className = 'tap-effect';
+            tap.style.left = x + 'px';
+            tap.style.top = y + 'px';
+            document.body.appendChild(tap);
+            
+            // Sparkles
+            const sparkleSymbols = ['✦', '✧', '★', '✶', '❖'];
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.textContent = sparkleSymbols[Math.floor(Math.random() * sparkleSymbols.length)];
+                    sparkle.style.left = (x + (Math.random() - 0.5) * 60) + 'px';
+                    sparkle.style.top = (y + (Math.random() - 0.5) * 60) + 'px';
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, i * 50);
+            }
+            
+            setTimeout(() => tap.remove(), 600);
+        }
+
+        // ========== SCROLL REVEAL ANIMATION ==========
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-container');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight - 80) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // ========== MOBILE MENU ==========
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
 
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
 
-        // Close mobile menu when clicking on links
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
             });
         });
 
-        // Smooth scrolling for anchor links
+        // ========== SMOOTH SCROLLING ==========
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -737,174 +1614,169 @@
             });
         });
 
-        // WhatsApp opener (avoids api.whatsapp.com blocks) + helper modal
-        const buildWhatsAppLinks = ({ phone, message }) => {
+        // ========== COUNTER ANIMATION ==========
+        const animateCounter = (element, target, suffix = '', duration = 2000) => {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const animate = () => {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start) + suffix;
+                    requestAnimationFrame(animate);
+                } else {
+                    element.textContent = target + suffix;
+                }
+            };
+            animate();
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(document.getElementById('studentCount'), 500, '+');
+                    animateCounter(document.getElementById('teacherCount'), 25, '+');
+                    animateCounter(document.getElementById('classCount'), 11, '');
+                    animateCounter(document.getElementById('successRate'), 100, '%');
+                    statsObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const studentCountEl = document.getElementById('studentCount');
+        if (studentCountEl) {
+            statsObserver.observe(studentCountEl);
+        }
+
+        // ========== WHATSAPP FUNCTIONALITY ==========
+        const WA_NUMBER = '919470260589';
+
+        const buildWhatsAppLinks = (phone, message) => {
             const encoded = encodeURIComponent(message);
             return {
                 deepLink: `whatsapp://send?phone=${phone}&text=${encoded}`,
-                webLink: `https://web.whatsapp.com/send?phone=${phone}&text=${encoded}`
+                webLink: `https://web.whatsapp.com/send?phone=${phone}&text=${encoded}`,
+                apiLink: `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`
             };
         };
 
-        const showWhatsAppModal = ({ phone, message }) => {
+        const showWhatsAppModal = (phone, message) => {
             const modal = document.getElementById('waModal');
             const pre = document.getElementById('waModalMessage');
             const openAppBtn = document.getElementById('waOpenAppBtn');
             const openWebBtn = document.getElementById('waOpenWebBtn');
             const copyBtn = document.getElementById('waCopyBtn');
             const closeBtn = document.getElementById('waCloseBtn');
+            const backdrop = document.getElementById('waModalBackdrop');
 
-            if (!modal || !pre || !openAppBtn || !openWebBtn || !copyBtn || !closeBtn) return;
+            if (!modal) return;
 
-            const { deepLink, webLink } = buildWhatsAppLinks({ phone, message });
+            const { deepLink, webLink, apiLink } = buildWhatsAppLinks(phone, message);
 
             pre.textContent = message;
             openAppBtn.setAttribute('href', deepLink);
             openWebBtn.setAttribute('href', webLink);
 
-            const close = () => modal.classList.add('hidden');
-            closeBtn.onclick = close;
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) close();
-            }, { once: true });
+            const closeModal = () => modal.classList.add('hidden');
+            
+            closeBtn.onclick = closeModal;
+            backdrop.onclick = closeModal;
 
             copyBtn.onclick = async () => {
                 try {
                     await navigator.clipboard.writeText(message);
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+                    copyBtn.innerHTML = '<i class="fas fa-check text-xl"></i><span class="text-xs">Copied!</span>';
                     setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
-                    }, 1400);
+                        copyBtn.innerHTML = '<i class="fas fa-copy text-xl"></i><span class="text-xs">Copy</span>';
+                    }, 2000);
                 } catch {
-                    // Fallback
                     const ta = document.createElement('textarea');
                     ta.value = message;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
                     document.body.appendChild(ta);
                     ta.select();
                     document.execCommand('copy');
                     ta.remove();
+                    copyBtn.innerHTML = '<i class="fas fa-check text-xl"></i><span class="text-xs">Copied!</span>';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy text-xl"></i><span class="text-xs">Copy</span>';
+                    }, 2000);
                 }
-            };
-
-            // Close on background click
-            modal.onclick = (e) => {
-                if (e.target === modal) modal.classList.add('hidden');
             };
 
             modal.classList.remove('hidden');
         };
 
-        const openWhatsAppMessage = ({ phone, message }) => {
+        const openWhatsApp = (phone, message) => {
             const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-            const { deepLink, webLink } = buildWhatsAppLinks({ phone, message });
+            const { deepLink, webLink, apiLink } = buildWhatsAppLinks(phone, message);
 
-            // Always show helper modal so user can copy if blocked.
-            showWhatsAppModal({ phone, message });
+            // Show modal for fallback options
+            showWhatsAppModal(phone, message);
 
-            // Also try opening WhatsApp automatically.
+            // Try to open WhatsApp
             if (isMobile) {
+                // Try deep link first for mobile
                 window.location.href = deepLink;
             } else {
+                // For desktop, open web.whatsapp.com
                 window.open(webLink, '_blank', 'noopener,noreferrer');
             }
         };
 
-        // Footer / generic WhatsApp buttons
-        document.querySelectorAll('.wa-link').forEach(a => {
-            a.addEventListener('click', (e) => {
-                const phone = a.getAttribute('data-wa');
-                if (!phone) return;
+        // Form handler
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                openWhatsAppMessage({
-                    phone,
-                    message: 'Hello! I want to know about admissions in Chanakya Academy.'
-                });
+                
+                const formData = new FormData(contactForm);
+                const parentName = formData.get('parentName') || '';
+                const phone = formData.get('phone') || '';
+                const studentName = formData.get('studentName') || '';
+                const selectedClass = formData.get('class') || '';
+                const msg = formData.get('message') || '';
+
+                const message = `🎓 *Chanakya Academy – Admission Enquiry*
+
+👤 Parent Name: ${parentName.trim()}
+📞 Phone: ${phone.trim()}
+🧒 Student Name: ${studentName.trim()}
+🏫 Class: ${selectedClass}
+📝 Message: ${msg.trim() || '(not provided)'}
+
+📍 Ranjita, Harsidhi, East Champaran, Bihar-845422`;
+
+                openWhatsApp(WA_NUMBER, message);
+                
+                setTimeout(() => {
+                    contactForm.reset();
+                }, 500);
+            });
+        }
+
+        // WhatsApp links in footer
+        document.querySelectorAll('.wa-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const phone = link.getAttribute('data-wa');
+                if (phone) {
+                    openWhatsApp(phone, 'Hello! I want to know about admissions in Chanakya Academy.');
+                }
             });
         });
 
-        const WA_NUMBER = '919470260589';
-
-        const buildAdmissionMessageFromForm = (form) => {
-            const parentName = (form.elements.parentName?.value || '').trim();
-            const phone = (form.elements.phone?.value || '').trim();
-            const studentName = (form.elements.studentName?.value || '').trim();
-            const selectedClass = (form.elements.class?.value || '').trim();
-            const msg = (form.elements.message?.value || '').trim();
-
-            const lines = [
-                '🎓 *Chanakya Academy – Admission Enquiry*',
-                '',
-                `👤 Parent Name: ${parentName}`,
-                `📞 Phone: ${phone}`,
-                `🧒 Student Name: ${studentName}`,
-                `🏫 Class: ${selectedClass}`,
-                msg ? `📝 Message: ${msg}` : '📝 Message: (not provided)',
-                '',
-                '📍 Ranjita, Harsidhi, East Champaran, Bihar-845422'
-            ];
-
-            return lines.join('\n');
-        };
-
-        const attachWhatsAppFormHandler = (formId, { closeModal } = {}) => {
-            const form = document.getElementById(formId);
-            if (!form) return;
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const message = buildAdmissionMessageFromForm(form);
-                openWhatsAppMessage({ phone: WA_NUMBER, message });
-
-                setTimeout(() => {
-                    alert('WhatsApp will open with your enquiry. Please tap SEND to submit it.');
-                    form.reset();
-                    if (typeof closeModal === 'function') closeModal();
-                }, 400);
-            });
-        };
-
-        // Contact form submission -> WhatsApp
-        attachWhatsAppFormHandler('contactForm');
-
-        // Hero Enroll Now button scrolls to the in-page Admission Enquiry form (no popup)
-
-        // Navbar background on scroll
+        // ========== NAVBAR SCROLL EFFECT ==========
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.classList.add('shadow-lg');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-xl');
                 nav.style.background = 'rgba(255, 255, 255, 0.98)';
             } else {
-                nav.classList.remove('shadow-lg');
+                nav.classList.remove('shadow-xl');
                 nav.style.background = 'rgba(255, 255, 255, 0.95)';
             }
         });
-
-        // Animate numbers on scroll
-        const animateValue = (element, start, end, duration) => {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                element.innerHTML = Math.floor(progress * (end - start) + start) + '+';
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        };
-
-        // Trigger animation when stats section is visible
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateValue(document.getElementById('studentCount'), 0, 500, 2000);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(document.getElementById('studentCount'));
     </script>
 </body>
 </html>
